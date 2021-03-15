@@ -1,0 +1,14 @@
+.link {
+        
+    &:visited,
+    &:link{
+    text-decoration: none;
+    font-family: Montserrat;    
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.2rem;
+    line-height: 15px;
+    color: #18A0FB;
+    
+    }
+}

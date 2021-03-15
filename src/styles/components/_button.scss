@@ -1,0 +1,19 @@
+.btn {
+    width: 314px;
+    height: 67px;
+
+    &-siguiente {
+        background: #C4C4C4;
+        color: #FFFFFF;
+        border-radius: 16px;
+        transition: .2s all;
+
+        &:hover {
+            background: #2D9CDB;
+        }
+
+        &:visited{
+            background: #2ddb53;
+        }
+    }
+}

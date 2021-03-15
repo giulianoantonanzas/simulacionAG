@@ -1,0 +1,33 @@
+.footer {
+    height: 4.1rem;
+    background: rgba(204, 204, 204, 0.2);
+    padding: 0 3.6rem;
+
+    display: flex;
+
+    justify-content: space-between;
+    &-logo{
+        font-size: 1.8rem;
+        text-transform: uppercase;
+    }
+
+    &-nav {
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;           
+
+
+        &--list{
+            display: flex;
+             flex-direction: row;
+            
+            &_item {
+                list-style: none;
+                margin: 0 5rem;
+           }
+        }
+    }
+
+
+
+}
