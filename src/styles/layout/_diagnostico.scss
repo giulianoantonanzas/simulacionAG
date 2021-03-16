@@ -1,0 +1,35 @@
+.diagnostico {
+    margin-top: 9.4rem ;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &-form {
+        display: grid;
+
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 2rem;
+
+        margin-bottom: 6.6rem;
+    }
+
+    .form-control{
+        height: 17.6rem;
+        text-align: center;
+
+        &:not(:last-child) {
+            border-right: 1px solid black;
+        }
+
+        select {
+            margin-top: 1rem;
+        }
+    }
+
+    h1 {
+        margin-bottom: 7.7rem;
+    }
+
+}

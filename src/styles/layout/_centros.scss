@@ -1,0 +1,25 @@
+.centros {
+
+    margin-top: 9.4rem ;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+        margin-bottom: 6.3rem;
+    }
+
+    &-form {
+
+        display: grid;
+        grid-template-columns: 1fr 5rem 1fr;
+        grid-gap: 2rem;
+
+        margin-bottom: 6.3rem;
+
+    }
+
+
+}

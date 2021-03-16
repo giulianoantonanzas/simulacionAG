@@ -1,8 +1,12 @@
 .btn {
-    width: 314px;
-    height: 67px;
+    border: none;
+    font-size: 2.4rem;
 
     &-siguiente {
+        width: 31.4rem;
+        height: 6rem;
+        padding: 1rem;
+
         background: #C4C4C4;
         color: #FFFFFF;
         border-radius: 16px;
@@ -14,6 +18,34 @@
 
         &:visited{
             background: #2ddb53;
+        }
+    }
+
+    &-perfil{
+        height: 9.6rem;
+        width: 9.2rem;
+        padding: 2rem;
+        background: #BDBDBD;
+        border-radius: 1.6rem;
+        &:not(:last-child){
+        margin-right: 1rem;
+        }
+    
+    }
+
+    &-centros {
+        width: 37.3rem;
+        height: 20.7rem;
+        padding: 1rem;
+
+        font-size: 2rem;
+        
+        background: #BDBDBD;
+        border-radius: 3.5rem;
+        text-align: center;
+
+        h3 {
+            margin-bottom: 1rem;
         }
     }
 }
