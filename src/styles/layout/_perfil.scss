@@ -22,24 +22,10 @@
 
         &_input{
 
-            label {
-                font-size: 2.4rem;
-            }
-
-            .text{
-                width: 25rem;
-                height: 6.7rem;
-               
-
-                &::before {
-                    content:"";
-                    border-left: 1px solid black;
-                    padding-left: 6rem;
-                }
-            }
-
-            .buttons {
-                margin-right: 6rem;
+            img {
+                padding: .5rem;
+                height: 5rem;
+                width: 5rem;
             }
         }
     }

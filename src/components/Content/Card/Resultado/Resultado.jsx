@@ -1,92 +1,216 @@
 import * as React from 'react';
 
+import iconEdit from '../../../../fonts/iconEdit.svg'
+
+import Simulacion from '../../../../api/simulacionAPI';
+import FormularioContacto from './Formulario/FormularioContacto';
+import { PasoContext } from '../../../../context/PasoContext';
 
 
 const Resultado = () =>{
+
+    const {paso, setPaso} = React.useContext(PasoContext);
+
+    const [listaI, setListaI] = React.useState([]);
+
+    const [cotizacion, setCotizacion] = React.useState([]);
+    const [items, setItems] = React.useState([]);
+    
+
+    const [contacto, setContacto] = React.useState(false);
+
+    React.useEffect(()=>{
+        Simulacion.getInstituciones().then(data => setListaI(data))
+        Simulacion.postCotizacion().then(data => {
+            setCotizacion(data); 
+            console.log(cotizacion)
+            setItems(data["items"]);
+        });
+
+    },[])
+
+    // console.log(items);
+    function handleGenerar(e) {
+        e.preventDefault();
+
+        setContacto(true);
+    }
+
+    function handleClickPoliza(e) {
+        e.preventDefault();
+        setPaso({...paso, id: 3})
+    }
+
+    function handleClickDiagnostico(e) {
+        e.preventDefault();
+        setPaso({...paso, id: 4})
+    }
+
+    if(cotizacion.length < 0) return <div> Cargando ....</div>
+
     return(
         <div className="resultado">
                 <h1 className="resultado-title">Simulación No. 112233</h1>
 
                 <div className="resultado-datos">
-                    <h1>Resumen de datos</h1>
+                    <h1 className="resultado-datos_title">Resumen de datos</h1>
 
-                    <div className="resultado-datos_flex">
+                    <div className="flex">
                         <div className="flex-item1">
-                            <div className="flex-item1_card">
-                                <h3>Resumen de póliza <button>edit</button></h3>
-                                
-
-                                <ul>
-                                    <li>Suma asegurada: $3,000,000 </li>
-                                    <li> Deducible: $3,500 </li>
-                                    <li>Coaseguro: 10% </li>
-                                </ul>
+                            
+                            <div className="card1">
+                                <div >
+                                    <h3>Resumen de póliza </h3>
+                                    <button className="btn-edit" onClick={handleClickPoliza}>
+                                        <img src={iconEdit} alt="edit"/>
+                                    </button>
+                                </div>
+                                <div> 
+                                <h4>Suma asegurada:</h4>
+                                {cotizacion.suma_asegurada}
+                                </div> 
+                                <div> 
+                                <h4>Deducible:</h4>
+                                {cotizacion.deducible}
+                                </div> 
+                                <div> 
+                                <h4>Coaseguro:</h4>
+                                {cotizacion.coaseguro}
+                                </div> 
                             </div>
 
-                            <p>
+                            <p className="flex-item1--p">
                             Tengo dudas sobre mi póliza <br/> 
                             <a href="#" className="link">Quiero contactar a mi seguro</a>
                             </p>
                         </div>
 
                         <div className="flex-item2">
-                            <div className="flex-item2_card">
-                                <h3>Resumen del Diagnóstico <button>edit</button></h3>
-                                
-
-                                <ul>
-                                    <li>Etapa del cáncer de mama:  Metastásico</li>
-                                    <li> Receptor Hormonal: ER+ </li>
-                                    <li>Estatus de HER2: Positivo </li>
-                                    <li>Estatus de RRCA: No lo sé</li>
-                                </ul>
+                            <div className="card2">
+                                    <div>
+                                    <h3>Resumen del Diagnóstico </h3>
+                                        <button className="btn-edit" onClick={handleClickDiagnostico}>
+                                            <img src={iconEdit} alt="edit"/>
+                                        </button>
+                                    </div>
+                                    <div> 
+                                    <h4>Etapa del cáncer de mama:</h4>
+                                    {cotizacion.etapa_cdm}
+                                    </div> 
+                                    <div> 
+                                    <h4>Receptor Hormonal:</h4>
+                                    {cotizacion.receptor_hormonal}
+                                    </div> 
+                                    <div> 
+                                    <h4>Estatus de HER2:</h4>
+                                    {cotizacion.status_her}
+                                    </div> 
+                                    <div> 
+                                    <h4>Estatus de BRCA:</h4>
+                                    {cotizacion.status_her}
+                                    </div> 
                             </div>
-                        </div>
+                           
+                        </div> {/*--- FIN FLEX--- */}
+
                     </div>
 
-                </div>
+                </div> {/*--- FIN DATOS--- */}
 
-                <div className="resultados-costo">
+                <div className="resultado-costo">
                     <h1>Costo estimado del tratamiento anual</h1>
 
                     <form className="costo-form">
                         <div className="form-control">
-                            <select name="city" id="city">
-                            <option value="value1">Value 1</option>
-                            <option value="value2" selected>Value 2</option>
-                            <option value="value3">Value 3</option>
+                            <select name="instituciones" id="instituciones">
+                                <option value="Select" disabled>Seleccionar</option>
+                            {
+                                listaI.map((item)=>{
+                                    return <option value={item.nombre}>{item.nombre}</option>
+                                })
+                            }
                             </select>
 
-                            <p className="form-text">Monto</p>
                         </div>
                     </form>
+                            <p className="form-text">$ {cotizacion.costo_total}</p>
 
                     <div className="resultado-costo_detalle">
-                        <h2>Detalles*:</h2>
+                        <h2 className="resultado-costo_detalle--title">Detalles*:</h2>
+                        {
+                            (items.length > 0) ?   
+                                items.map( data => {
+                                         return <div>
+                                            
+                                            <h4 className="flex-container">
+                                            <div> {data.nombre}:</div>
+                                            <div>{data.precio_preferencial}</div>
+                                            </h4>
+                                            <p>Descripcion de cada diagnostico</p>
+                                        </div> 
+                                    })
 
-                        <ul>
-                            <li>Diagnóstico: Mamografía  / Radiografía / Tomografía $monto</li>
-                            <li> Estudios: Estudio molecular para HER2 $costo</li>
-                            <li>Cirugía: Mastectomía</li>
-                            <li> Radioterapia: Hasta 15 sesiones de radioterapia</li>
-                            <li> Tratamiento Farmacológico: $costo <br/> Radioterapia de 4 a 6 ciclos Hormonoterapia Terapia dirigida que puede incluir: Trastuzumab, Alectinib, xxxxx</li>
-                            <li> Total por 1 año </li>
-                        </ul>
+                            
+                             : 
+                             <div>Cargando ....</div>
+                        }
+
+                                {/* <h4 className="flex-container">
+                                   <div> Diagnóstico:</div>
+                                    <div>{cotizacion.items[0].precio_preferencial}</div>
+                                </h4>
+                                <p> Mamografía  / Radiografía / Tomografía</p>
+                                
+                                <h4 className="flex-container">
+                                   <div> Estudios:</div>
+                                    <div>{cotizacion.items[1].precio_preferencial}</div>
+                                </h4>
+                                <p> Estudio molecular para HER2</p>
+
+                               
+                                <h4 className="flex-container">
+                                   <div> Cirugía:</div>
+                                    <div>{cotizacion.items[2].precio_preferencial}</div>
+                                </h4>
+                                <p> Mastectomía</p>
+                                
+                                <h4 className="flex-container">
+                                   <div> Radioterapia:</div>
+                                    <div>{cotizacion.items[3].precio_preferencial}</div>
+                                </h4>
+                                <p>Hasta 15 sesiones de radioterapia</p>
+                                
+                                <h4 className="flex-container">
+                                   <div> Tratamiento Farmacológico:</div>
+                                    <div>{cotizacion.items[4].precio_preferencial}</div>
+                                </h4>
+                                <p> Radioterapia de 4 a 6 ciclos Hormonoterapia 
+                                    Terapia dirigida que puede incluir: Trastuzumab, Alectinib, xxxxx</p>
+                              */}
+                                <h4 className="flex-container">
+                                   <div> Total por 1 año</div>
+                                    <div>${cotizacion.costo_total}</div>
+                                </h4>
+
+
                     </div>
                 </div>
 
-                <div className="buttons">
-                    <form className="buttons-form">
-                        <button className="btn btn-generar">Generar Preaprobación</button>
-                        <button className="btn btn-descargar">Descargar Simulacion</button>
-                        <button className="btn btn-finalizar">Finalizar Simulación</button>
-                    </form>
+                <div className="resultado-costo_buttons">
+                    {/* <form className="buttons-form"> */}
+                        <button className="btn btn-generar marginRight" onClick={handleGenerar}>Generar Preaprobación</button>
+                        <button className="btn btn-descargar marginRight">Descargar Simulacion</button>
+                        <button className="btn btn-finalizar marginRight">Finalizar Simulación</button>
+                    {/* </form> */}
                 </div>
-
-
+                {(contacto) ? <FormularioContacto /> : <div></div>}
         </div>
     )
 
 }
+
+/*
+   
+*/
 
 export default Resultado;

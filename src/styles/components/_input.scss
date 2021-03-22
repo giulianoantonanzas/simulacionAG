@@ -1,20 +1,44 @@
 input[type=text] {
-    width: 13.2rem;
+    min-width: 22rem;
     height: 6.7rem;   
     background: #BDBDBD;
     border-radius: 3.5rem;
     border: none;
     text-align: center;
+    font-size: 1.8rem;
+
+    &:placeholder-shown{
+        color: white;
+        font-size: 1.8em;
+    }
+
 }
 
 
 
-input[type=date], select {
-    min-width: 22.9rem;
+input[type=date] {
+    min-width: 22rem;
     height: 6.7rem;   
     background: #BDBDBD;
     border-radius: 3.5rem;
     border: none;
     text-align: center;
+    font-size: 1.8rem;
+}
+
+select { 
+    max-width: 22rem;
+    height: 6.7rem;   
+    background: #BDBDBD;
+    border-radius: 3.5rem;
+    border: none;
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+label {
     font-size: 2.4rem;
 }
+
+
+

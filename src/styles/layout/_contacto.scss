@@ -1,0 +1,43 @@
+.contacto {
+    padding-top: 8.3rem;
+
+    &-form{
+        margin: 3rem 0;
+        padding: 5rem;
+        // background-color: bisque;
+      
+        &_card {
+            margin: 3rem 0;
+            padding: 3rem;
+            background-color: #BDBDBD;
+            border-radius: 1.4rem;
+            
+            :not(:last-child){
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: space-between;
+            }
+
+            :last-child {
+              
+                flex-flow: column nowrap;
+                justify-content: center;
+                justify-items: center;
+                align-items: center;
+                align-content: center;
+                width: 37.1rem;
+            }
+        }
+    }
+
+    .form-control {
+        margin: 1rem 0;
+      
+        input[type=text] {
+            background-color: #F2F2F2;
+            min-width: 36rem;
+            color: black;
+            border-radius: 1.6rem;
+        }
+    }
+}

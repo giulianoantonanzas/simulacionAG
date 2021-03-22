@@ -2,7 +2,7 @@
     padding-top: 10rem;
 
     display: flex;
-    flex-direction: column;
+    flex-flow: column wrap; 
     justify-content: center;
     align-items: center;
 
@@ -12,16 +12,60 @@
         display: grid;
 
         grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(3, 1fr);
         grid-gap: 1.5rem;
+        font-size: 2.4rem;
 
-        &-control{
-            font-size: 2.4rem;
+        label {
+            margin-bottom: 1rem;
+        }
+
+
+        &-control1,
+        &-control2,
+        &-control3,
+        &-control4{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            span {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        &-control5{
+            // font-size: 2.4rem;
+            grid-column: 2/4 ;
+            grid-row: 2;
 
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
         }
+
+        &-control6{
+            // font-size: 2.4rem;
+            grid-column: 2/4 ;
+            grid-row: 3;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media only screen and (max-width: 768px) {
+            display: flex;
+            flex-flow: column wrap; 
+        }
+
+
+
     }
 
     h1{

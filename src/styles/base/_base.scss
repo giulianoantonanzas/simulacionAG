@@ -7,16 +7,32 @@
 }
 
 html { font-size: 62.5%; } /* =10px */
-//body { font-size: 1.4rem; } /* =14px */
-//h1 { font-size: 2.4rem; } /* =24px */
+
+
+@media only screen and (max-width: 1100px) {
+    html { font-size: 56.25%; } /* =10px / 16px */
+}
+
+@media only screen and (max-width: 768px) {
+    html { font-size: 50%; } /* =8px / 16px */
+}
+
+@media only screen and (max-width: 375px) {
+    html { font-size: 47.25%; } /* =7px  / 16 px*/
+}
+
+// html { font-size: 38.5%; } /* =10px */
 
 body {
     font-size: 1.4rem;
     font-family: 'Montserrat', sans-serif;
-    padding: 2.5rem 3.6rem ; 
-    
+    padding: 2.5rem 3.6rem ;   
 }
 
 .marginBottom {
     margin-bottom: 2rem;
+}
+
+.marginRight {
+    margin-right: 2rem;
 }

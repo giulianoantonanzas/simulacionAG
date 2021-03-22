@@ -10,28 +10,31 @@
     align-items: center;
 
     &-title {
-        margin-bottom: 2.5rem;
+        margin-bottom: 3.5rem;
+        font-size: 2.4rem;
         text-align: center;
     }
 
     &-text {
         margin: 30px 0;
+        font-size: 2.4rem;
 
         &_grid{
-            height: 30rem;
-
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-column-gap: 10px;
+            grid-template-columns: repeat(2, 35rem);
+            grid-column-gap: 2.5rem;
+            align-items: center;
+            justify-items: center;
+            text-align: center;
 
-            p {
-                font-size: 2.4rem;
-                text-align: center;
-                display: flex;
-                flex-flow: column nowrap;
-                justify-content: center;
-                strong {
-                    font-size: 10rem;
+            @media (min-width: 360px) and (max-width: 768px) {
+                grid-column-gap: 1.5rem;
+                // font-size: 1.4rem;
+            }
+
+            .item {
+                h1 {
+                    margin-bottom: 2rem;
                 }
             }
         }
@@ -48,32 +51,32 @@
 
         .form-control {
             margin-bottom: 1rem;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+            display: grid;
+            grid-template-columns: 2.9rem 1fr;
+            grid-gap: 1rem;
 
-            width: 25.2rem;
-            height: 4.6rem;
+            width: 28.1rem;
+
+            label {
+                font-size: 1.4rem;
+                line-height: 2rem;
+                /* or 143% */
+    
+                text-align: center;
+                letter-spacing: -0.015em;
+
+
+            }
             
-            font-family: Montserrat;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 1.4rem;
-            line-height: 2rem;
-            /* or 143% */
-
-            text-align: center;
-            letter-spacing: -0.015em;
-            // label {
-            //     font-size: 2.4rem;
-            // }
         }
     }
 
-    a {
-        margin: 1.2rem 0;
-    }
+   
 }
 
+input[type=checkbox]{
+
+	font-size: inherit;
+	margin: 1.2rem;
+    transform: scale(2.3);
+}

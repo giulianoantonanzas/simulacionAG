@@ -1,0 +1,159 @@
+.resultado{
+    padding: 3.7rem 5.5rem;
+    width: 100%;
+
+    &-datos{
+       
+        h1 {
+            margin-top: 4rem;
+            margin-bottom: 2rem;
+        }
+
+        .flex {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+
+            @media (min-width: 360px) and (max-width: 768px) {
+                flex-flow: column nowrap;
+
+                &-item2 {
+                    display: flex;
+                    flex-flow: column nowrap;
+                    align-items: center;
+                }
+
+        
+            }
+
+            &-item1 {
+
+                display: flex;
+                flex-flow: column nowrap;
+                align-items: center;
+                margin-right: 5rem;
+                
+                     &--p {
+                         margin-top: 1rem;
+                     }
+                     @media (min-width: 360px) and (max-width: 768px) {
+                        &--p {
+                            margin: 1rem 0;
+                        }
+                     }
+            }
+
+        }
+    
+        .card1 {
+                min-width: 31rem;
+                background: #BDBDBD;
+                border-radius: 1.6rem;
+                border: none;
+                padding: 2.5rem;
+
+                display: flex;
+                flex-flow: column nowrap;
+                
+                div {
+                    display: flex;
+                    flex-flow: row nowrap;
+                    justify-content: space-between;
+                    margin: .5rem 0;
+                }
+               
+        }
+
+        .card2 {
+            max-width: 59rem;
+            background: #BDBDBD;
+            border-radius: 1.6rem;
+            border: none;
+            padding: 2.5rem;
+            display: flex;
+            flex-flow: column nowrap;
+         
+            div {
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: space-between;
+                margin: .5rem 0;
+            }
+                
+        }
+
+ 
+    } // resutado-datos
+
+    
+    
+
+    &-costo {
+        padding-top: 3.6rem;
+
+        display: flex;
+        flex-flow: column nowrap;
+        
+        align-items: center;
+  
+
+        &::before {
+            content: " ";
+            border-top: 1px solid black;
+            width: 100%;
+            padding-top: 2rem;
+        }
+
+        .costo-form {
+            margin: 1rem 0;
+        }
+
+        .form-text {
+            width: 31.7rem;
+            font-size: 2.4rem;
+            padding: 1rem 0;
+            background-color: #BDBDBD;
+            text-align: center;
+            border-radius: 1.6rem;
+        }
+
+        &_detalle {
+            margin-top: 3.5rem;
+            padding: 0 10rem;
+
+            &--title {
+                margin-bottom: 1.2rem;
+            }
+
+            .flex-container {
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: space-between;
+                margin: 0;
+            }
+
+            p {
+                width: 44.4rem;
+                font-weight: 500;
+                margin-right: 15rem;
+            }
+        }
+
+        
+
+        &_buttons {
+
+            margin-top: 5rem;
+
+            display: flex;
+            flex-flow: row nowrap;
+
+    
+        }
+
+
+    }
+
+    
+
+}

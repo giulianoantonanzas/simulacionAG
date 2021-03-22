@@ -1,10 +1,75 @@
 import * as React from 'react';
+import { PasoContext } from '../../../../context/PasoContext';
+
+import iconMale from '../../../../fonts/iconMale.svg';
+import iconFemale from '../../../../fonts/iconFemale.svg';
+
 
 const Perfil = () =>{
+    
+    const {paso, setPaso} = React.useContext(PasoContext);
 
-    function handleClick(e){
+    //Maneja cambios en genero y edad
+    const [perfil, setPerfil] = React.useState({genre: paso.genre, edad: paso.edad});
+
+    const buttonRef = React.useRef();
+    const edadRef = React.useRef();
+
+    //Cambia clase de estilos de botones de hombre y mujer
+    const [classButtonM, setButtonM] = React.useState("btn btn-perfil");
+    const [classButtonF, setButtonF] = React.useState("btn btn-perfil");
+    //---------------------------------//
+
+    React.useEffect(()=>{
+        buttonRef.current.disabled = true;
+            if(perfil.genre!='' && perfil.edad!=0){
+                buttonRef.current.disabled = false;
+                edadRef.current.value = perfil.edad;
+                if(perfil.genre == 'M'){
+                    setButtonM("btn btn-perfil-activo");
+                    setButtonF("btn btn-perfil");
+                }
+                if(perfil.genre == 'F'){
+                    setButtonF("btn btn-perfil-activo");
+                    setButtonM("btn btn-perfil");
+                }
+            }
+
+    },[perfil])
+
+
+
+    function handleClickM(e){
         e.preventDefault();
+        setPerfil({...perfil, genre: 'M'})
+
+        setButtonM("btn btn-perfil-activo");
+        setButtonF("btn btn-perfil");
     }
+
+    function handleClickF(e){
+        e.preventDefault();
+        console.log(perfil)
+        setPerfil({...perfil, genre: 'F'})
+
+        setButtonF("btn btn-perfil-activo");
+        setButtonM("btn btn-perfil");
+    }
+
+    function handleEdad(e){
+        e.preventDefault();
+        setPerfil({...perfil, edad: edadRef.current.value});
+    }
+
+
+    function handleSiguiente(e){
+        e.preventDefault();
+
+        let i = paso.id + 1;
+        setPaso({...paso, id: i, genre: perfil.genre, edad: perfil.edad})
+
+    }
+
 
     return(
         <div className="perfil">
@@ -13,21 +78,31 @@ const Perfil = () =>{
 
                 <form className="perfil-form">
                     <div className="perfil-form_input">
-                        <button className="btn btn-perfil" onClick={handleClick}>M</button>
-                        <button className="btn btn-perfil" onClick={handleClick}>F</button>
+                        <button className={classButtonM} onClick={handleClickM}><img src={iconMale} alt="Male"/></button>
+                        <button className={classButtonF} onClick={handleClickF}><img src={iconFemale} alt="Female"/></button>
                     </div>
 
                     <div className="horizontal-bar"></div>
 
                     <div className="text">
-                        <input type="text" name="edad" placeholder="Edad"/>
+                        <input type="text" name="edad" placeholder="Edad"
+                         ref={edadRef}
+                         value={perfil.edad}
+                         onChange={handleEdad}
+                         autoComplete="false"
+                         />
                         <label id="edad"> Años </label>
                     </div>
 
                     
                 </form>
 
-                <button className="btn btn-siguiente">Siguiente</button>    
+                <button className="btn btn-siguiente" 
+                onClick={handleSiguiente} 
+                ref={buttonRef} 
+                >
+                    Siguiente
+                </button>    
 
             </div>
     )
