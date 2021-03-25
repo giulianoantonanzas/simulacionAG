@@ -2,7 +2,10 @@ import * as React from 'react';
 import { PasoContext } from '../../../../context/PasoContext';
 
 import iconMale from '../../../../fonts/iconMale.svg';
+import iconMaleActive from '../../../../fonts/iconMaleActive.svg';
+
 import iconFemale from '../../../../fonts/iconFemale.svg';
+import iconFemaleActive from '../../../../fonts/iconFemaleActive.svg';
 
 
 const Perfil = () =>{
@@ -92,8 +95,13 @@ const Perfil = () =>{
 
                 <form className="perfil-form">
                     <div className="perfil-form_input">
-                        <button className={classButtonM} onClick={handleClickM}><img src={iconMale} alt="Male"/></button>
-                        <button className={classButtonF} onClick={handleClickF}><img src={iconFemale} alt="Female"/></button>
+                        <button className={classButtonM} onClick={handleClickM}> 
+                        { perfil.genre == 'M' ? 
+                             <img src={iconMaleActive} alt="Male"/> : <img src={iconMale} alt="Male"/> }
+                        </button>
+                        <button className={classButtonF} onClick={handleClickF}>    {   perfil.genre == 'F' ? 
+                             <img src={iconFemaleActive} alt="Female"/> : <img src={iconFemale} alt="Female"/> }
+                        </button>
                     </div>
 
                     <div className="horizontal-bar"></div>

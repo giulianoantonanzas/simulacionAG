@@ -3,7 +3,7 @@ import React, {createContext, useState} from 'react';
 export const PasoContext = createContext();
 
 const pasoHard = {
-    id: 6,
+    id: 2,
     // --Perfil-- //
     genre: '',
     edad: 0,

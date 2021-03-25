@@ -29,11 +29,16 @@ select {
     max-width: 22rem;
     height: 6.7rem;
     padding: 0 3.5rem;   
-    background: #BDBDBD;
+    background-color: #BDBDBD;
+    background-image: url("../../fonts/iconArrow.svg");
+    background-repeat: no-repeat;
+    background-position: center right 15px;
     border-radius: 3.5rem;
     border: none;
     text-align: center;
     font-size: 1.8rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
 label {
