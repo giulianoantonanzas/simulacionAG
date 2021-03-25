@@ -58,8 +58,7 @@ const Inicio = () =>{
                 />
 
                 <a href="#" className="link">Ya tengo mi simulación</a>
-
-
+  
             </div>
     )
 

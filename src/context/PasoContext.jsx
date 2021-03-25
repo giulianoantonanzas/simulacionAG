@@ -10,9 +10,9 @@ const pasoHard = {
     //--------------//
     //-- Seguro --//
     aseguradora: '',
-    suma: 0, 
+    suma_asegurada: 0, 
     deducible: 0, 
-    coasegura: 0, 
+    coaseguro: 0, 
     vigencia: '',
     //-----------------//
     //-- Diagnostico --//

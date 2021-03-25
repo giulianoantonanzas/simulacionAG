@@ -1,43 +1,66 @@
 .contacto {
     padding-top: 8.3rem;
 
+    &-title {
+        padding: 0 3rem;
+        font-size: 2.4rem;
+        font-weight: 600;        
+        line-height: 2.5rem;
+        letter-spacing: -0.015em;
+    }
+
     &-form{
         margin: 3rem 0;
         padding: 5rem;
         // background-color: bisque;
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: center;
+        align-items: center;
       
         &_card {
             margin: 3rem 0;
             padding: 3rem;
             background-color: #BDBDBD;
             border-radius: 1.4rem;
-            
-            :not(:last-child){
-                display: flex;
-                flex-flow: row nowrap;
-                justify-content: space-between;
-            }
+ 
+            display: flex;
+            flex-flow: column wrap;
+    
 
-            :last-child {
-              
-                flex-flow: column nowrap;
-                justify-content: center;
-                justify-items: center;
+            &--terminos{
+                display: flex;
+                
+                flex-flow: row nowrap;
                 align-items: center;
-                align-content: center;
-                width: 37.1rem;
+                padding: 2rem 5rem 2rem 15rem;
+
+                @media only screen and (max-width: 768px) {
+                    padding: 0;
+                }
+
             }
         }
     }
 
     .form-control {
         margin: 1rem 0;
+        
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        align-items: center;
+        
       
         input[type=text] {
             background-color: #F2F2F2;
             min-width: 36rem;
             color: black;
             border-radius: 1.6rem;
+    
         }
+
+
+        
     }
 }

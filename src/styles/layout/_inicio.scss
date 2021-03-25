@@ -22,17 +22,29 @@
         &_grid{
             display: grid;
             grid-template-columns: repeat(2, 35rem);
-            grid-column-gap: 2.5rem;
+            grid-column-gap: 24.5rem;
             align-items: center;
             justify-items: center;
             text-align: center;
 
-            @media (min-width: 360px) and (max-width: 768px) {
-                grid-column-gap: 1.5rem;
+            
+
+            @media only screen and (max-width: 990px) {
+                // grid-column-gap: 1.5rem;
                 // font-size: 1.4rem;
+                display: flex;
+                flex-flow: column wrap;
+                justify-content: center;
+                justify-items: center;
+                .item:last-child {
+                    margin-top: 5rem;
+                }
             }
 
             .item {
+                p {
+                    max-width:31rem;
+                }
                 h1 {
                     margin-bottom: 2rem;
                 }
@@ -51,20 +63,21 @@
 
         .form-control {
             margin-bottom: 1rem;
-            display: grid;
-            grid-template-columns: 2.9rem 1fr;
-            grid-gap: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-            width: 28.1rem;
+            
 
             label {
+                margin-left: 1.5rem;
                 font-size: 1.4rem;
                 line-height: 2rem;
                 /* or 143% */
     
                 text-align: center;
                 letter-spacing: -0.015em;
-
+                width: 25rem;
 
             }
             

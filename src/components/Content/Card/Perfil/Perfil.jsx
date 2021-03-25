@@ -58,7 +58,14 @@ const Perfil = () =>{
 
     function handleEdad(e){
         e.preventDefault();
-        setPerfil({...perfil, edad: edadRef.current.value});
+        const re = /^[0-9\b]+$/;
+
+        // if value is not blank, then test the regex
+    
+        if (e.target.value === '' || re.test(e.target.value)) {
+           
+           setPerfil({...perfil, edad: e.target.value});
+        }
     }
 
 
@@ -69,6 +76,13 @@ const Perfil = () =>{
         setPaso({...paso, id: i, genre: perfil.genre, edad: perfil.edad})
 
     }
+
+    function handleClick(e) {
+        e.preventDefault();
+
+        e.target.value = '';
+    }
+    
 
 
     return(
@@ -84,11 +98,13 @@ const Perfil = () =>{
 
                     <div className="horizontal-bar"></div>
 
-                    <div className="text">
+                    <div className="text-age">
                         <input type="text" name="edad" placeholder="Edad"
+                        pattern="[0-9]*"
                          ref={edadRef}
                          value={perfil.edad}
                          onChange={handleEdad}
+                         onClick={handleClick}
                          autoComplete="false"
                          />
                         <label id="edad"> Años </label>

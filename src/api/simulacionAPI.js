@@ -62,7 +62,7 @@ export default  {
 
     //Pedir datos de cotizacion
 
-    postCotizacion: () => {
+    postCotizacion: (paso) => {
         const data = {
             id_receptor_hormonal: 1,	
             id_status_her: 1,	
@@ -75,8 +75,11 @@ export default  {
             coaseguro: 12, 
         }
 
+        console.log(paso);
+
         return axios.post(globalURL + 'cotizacion', data)
-        .then( res => res.data);
+        .then( res => res.data)
+        .catch(err => err);
     }
 
 

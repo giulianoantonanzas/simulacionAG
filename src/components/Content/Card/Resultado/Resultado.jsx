@@ -15,21 +15,26 @@ const Resultado = () =>{
 
     const [cotizacion, setCotizacion] = React.useState([]);
     const [items, setItems] = React.useState([]);
+
+     const[nroSimulacion, setNroSimulacion] = React.useState(0);
     
 
     const [contacto, setContacto] = React.useState(false);
 
     React.useEffect(()=>{
         Simulacion.getInstituciones().then(data => setListaI(data))
-        Simulacion.postCotizacion().then(data => {
+        Simulacion.postCotizacion(paso).then(data => {
             setCotizacion(data); 
             console.log(cotizacion)
             setItems(data["items"]);
-        });
+        })
+        .catch(err => console.log(err));
 
+        setNroSimulacion(Math.floor(Math.random() *100) + 112233);
+        console.log(nroSimulacion);
     },[])
 
-    // console.log(items);
+    //  console.log(items);
     function handleGenerar(e) {
         e.preventDefault();
 
@@ -46,11 +51,23 @@ const Resultado = () =>{
         setPaso({...paso, id: 4})
     }
 
-    if(cotizacion.length < 0) return <div> Cargando ....</div>
+    function handleChangeInstituto(e) {
+        e. preventDefault();
+
+        Simulacion.postCotizacion(paso).then(data => {
+            setCotizacion(data); 
+            console.log(cotizacion)
+            setItems(data["items"]);
+        })
+        .catch(err => console.log(err));
+
+    }
+
+    
 
     return(
         <div className="resultado">
-                <h1 className="resultado-title">Simulación No. 112233</h1>
+                <h1 className="resultado-title">Simulación No. {nroSimulacion}</h1>
 
                 <div className="resultado-datos">
                     <h1 className="resultado-datos_title">Resumen de datos</h1>
@@ -67,15 +84,15 @@ const Resultado = () =>{
                                 </div>
                                 <div> 
                                 <h4>Suma asegurada:</h4>
-                                {cotizacion.suma_asegurada}
+                                ${paso.suma_asegurada}
                                 </div> 
                                 <div> 
                                 <h4>Deducible:</h4>
-                                {cotizacion.deducible}
+                                ${paso.deducible}
                                 </div> 
                                 <div> 
                                 <h4>Coaseguro:</h4>
-                                {cotizacion.coaseguro}
+                                {paso.coaseguro}%
                                 </div> 
                             </div>
 
@@ -95,19 +112,19 @@ const Resultado = () =>{
                                     </div>
                                     <div> 
                                     <h4>Etapa del cáncer de mama:</h4>
-                                    {cotizacion.etapa_cdm}
+                                    {paso.mama}
                                     </div> 
                                     <div> 
                                     <h4>Receptor Hormonal:</h4>
-                                    {cotizacion.receptor_hormonal}
+                                    {paso.hormonal}
                                     </div> 
                                     <div> 
                                     <h4>Estatus de HER2:</h4>
-                                    {cotizacion.status_her}
+                                    {paso.her}
                                     </div> 
                                     <div> 
                                     <h4>Estatus de BRCA:</h4>
-                                    {cotizacion.status_her}
+                                    {paso.brca}
                                     </div> 
                             </div>
                            
@@ -118,24 +135,32 @@ const Resultado = () =>{
                 </div> {/*--- FIN DATOS--- */}
 
                 <div className="resultado-costo">
-                    <h1>Costo estimado del tratamiento anual</h1>
+                    <h1 className="resultado-costo--title">Costo estimado del tratamiento anual</h1>
 
+                       
                     <form className="costo-form">
-                        <div className="form-control">
-                            <select name="instituciones" id="instituciones">
-                                <option value="Select" disabled>Seleccionar</option>
-                            {
-                                listaI.map((item)=>{
-                                    return <option value={item.nombre}>{item.nombre}</option>
-                                })
-                            }
-                            </select>
-
-                        </div>
-                    </form>
+                        
+                            <div className="form-control">
+                                <select name="instituciones" id="instituciones">
+                                    <option value="Select" disabled>Seleccionar</option>
+                                {
+                                    listaI.map((item)=>{
+                                        return <option value={item.nombre}>{item.nombre}</option>
+                                    })
+                                }
+                                </select>
+                            </div>
+                        {
+                            (cotizacion.length === 0) ?  <div> Cargando Monto ....</div>: 
                             <p className="form-text">$ {cotizacion.costo_total}</p>
+                        }
+                    </form>
+                    {
+                        (cotizacion.length === 0) ?  <div> Cargando Detalle ....</div> 
+                        :
+                    <div>
 
-                    <div className="resultado-costo_detalle">
+                        <div className="resultado-costo_detalle">
                         <h2 className="resultado-costo_detalle--title">Detalles*:</h2>
                         {
                             (items.length > 0) ?   
@@ -144,9 +169,10 @@ const Resultado = () =>{
                                             
                                             <h4 className="flex-container">
                                             <div> {data.nombre}:</div>
-                                            <div>{data.precio_preferencial}</div>
+                                            <div>${data.precio_preferencial}</div>
                                             </h4>
-                                            <p>Descripcion de cada diagnostico</p>
+                                            {/* <p>{data.detalle}</p> */}
+                                            <p> Descripción del diagnóstico </p>
                                         </div> 
                                     })
 
@@ -155,53 +181,29 @@ const Resultado = () =>{
                              <div>Cargando ....</div>
                         }
 
-                                {/* <h4 className="flex-container">
-                                   <div> Diagnóstico:</div>
-                                    <div>{cotizacion.items[0].precio_preferencial}</div>
-                                </h4>
-                                <p> Mamografía  / Radiografía / Tomografía</p>
-                                
-                                <h4 className="flex-container">
-                                   <div> Estudios:</div>
-                                    <div>{cotizacion.items[1].precio_preferencial}</div>
-                                </h4>
-                                <p> Estudio molecular para HER2</p>
-
-                               
-                                <h4 className="flex-container">
-                                   <div> Cirugía:</div>
-                                    <div>{cotizacion.items[2].precio_preferencial}</div>
-                                </h4>
-                                <p> Mastectomía</p>
-                                
-                                <h4 className="flex-container">
-                                   <div> Radioterapia:</div>
-                                    <div>{cotizacion.items[3].precio_preferencial}</div>
-                                </h4>
-                                <p>Hasta 15 sesiones de radioterapia</p>
-                                
-                                <h4 className="flex-container">
-                                   <div> Tratamiento Farmacológico:</div>
-                                    <div>{cotizacion.items[4].precio_preferencial}</div>
-                                </h4>
-                                <p> Radioterapia de 4 a 6 ciclos Hormonoterapia 
-                                    Terapia dirigida que puede incluir: Trastuzumab, Alectinib, xxxxx</p>
-                              */}
                                 <h4 className="flex-container">
                                    <div> Total por 1 año</div>
                                     <div>${cotizacion.costo_total}</div>
                                 </h4>
 
 
+                        </div>
                     </div>
+                        
+                    }
+                     
                 </div>
 
                 <div className="resultado-costo_buttons">
-                    {/* <form className="buttons-form"> */}
+                   
                         <button className="btn btn-generar marginRight" onClick={handleGenerar}>Generar Preaprobación</button>
                         <button className="btn btn-descargar marginRight">Descargar Simulacion</button>
                         <button className="btn btn-finalizar marginRight">Finalizar Simulación</button>
-                    {/* </form> */}
+                    
+                </div>
+
+                <div className="resultado-legal">
+                    <p>Legal que menciona que el resultado puede ser variable y que depende de la decisón de cada médico.</p>
                 </div>
                 {(contacto) ? <FormularioContacto /> : <div></div>}
         </div>

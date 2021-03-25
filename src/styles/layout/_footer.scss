@@ -19,13 +19,28 @@
 
         &--list{
             display: flex;
-             flex-direction: row;
+             flex-wrap: wrap;
              justify-content: space-between;
-            
+             @media only screen and (max-width: 520px) {
+                flex-direction: column;
+                justify-content: flex-end;
+            }
+             
+             
             &_item {
                 list-style: none;
-                margin: 0 5rem;
+                // margin: 0 5rem;
+                &:last-child{
+                    margin-left: 7rem;        
+                }
+                @media only screen and (max-width: 520px) {
+                    &:last-child{
+                        margin-left: 0rem;        
+                    }   
+                }
            }
+
+           
         }
     }
 

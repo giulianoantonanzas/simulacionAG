@@ -8,10 +8,7 @@ import Centros from './Centros/Centros';
 import Resultado from './Resultado/Resultado';
 import {  PasoContext } from '../../../context/PasoContext';
 
-let PasoNew = {
-    id: 1,
-    nombre: "perfil"
-}
+
 
 const Card = () => {
 
@@ -20,11 +17,11 @@ const Card = () => {
 
     const handleAtras = (e) =>{
         e.preventDefault();
-        console.log(paso)
+        // console.log(paso)
     
         if(paso.id>1){
             let i = paso.id-1;  
-            console.log("incre ",i)
+            // console.log("incre ",i)
              setPaso( {...paso, id: i, nombre:'arranca'});
         }
          
@@ -32,11 +29,11 @@ const Card = () => {
     
     const handleDelante = (e) =>{
         e.preventDefault();
-        console.log(paso)
+        // console.log(paso)
     
         if(paso.id<6){
             let i = paso.id+1;
-            console.log("decre ",i)
+            // console.log("decre ",i)
             setPaso( {...paso, id: i, nombre:'arranca'});
         }
          
@@ -62,13 +59,13 @@ return (
     <div className="card">
         {renderSwitch()}
         
-        <div className="flex-container">
+        {/* <div className="flex-container">
         <button onClick={handleAtras}>atras</button>
         <button onClick={handleDelante} >adelante</button>
-        <div style={{width: "200px"}}>
+         <div style={{width: "200px"}}>
             {JSON.stringify(paso)}
-        </div>
-        </div>
+        </div> 
+        </div> */}
     </div>
 );
 

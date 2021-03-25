@@ -112,6 +112,10 @@
         background: #2D9CDB;
         color: white;
         border-radius: 1.6rem;
+        @media only screen and (max-width: 768px) {
+            max-width: 25rem;
+            margin-bottom: 2rem;
+        }
     }
 
     &-descargar {
@@ -122,6 +126,10 @@
         background: #56CCF2;
         color: white;
         border-radius: 1.6rem;
+        @media only screen and (max-width: 768px) {
+            max-width: 25rem;
+            margin-bottom: 2rem;
+        }
     }
 
     &-finalizar {
@@ -133,6 +141,9 @@
         background: #BDBDBD;
         color: white;
         border-radius: 1.6rem;
+        @media only screen and (max-width: 768px) {
+            max-width: 25rem;
+        }
     }
 
 
