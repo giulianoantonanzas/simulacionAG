@@ -23,12 +23,12 @@ const Resultado = () =>{
 
     React.useEffect(()=>{
         Simulacion.getInstituciones().then(data => setListaI(data))
-        Simulacion.postCotizacion(paso).then(data => {
-            setCotizacion(data); 
-            console.log(cotizacion)
-            setItems(data["items"]);
-        })
-        .catch(err => console.log(err));
+        // Simulacion.postCotizacion(paso).then(data => {
+        //     setCotizacion(data); 
+        //     console.log(cotizacion)
+        //     setItems(data["items"]);
+        // })
+        // .catch(err => console.log(err));
 
         setNroSimulacion(Math.floor(Math.random() *100) + 112233);
         console.log(nroSimulacion);
@@ -150,49 +150,73 @@ const Resultado = () =>{
                                 }
                                 </select>
                             </div>
-                        {
-                            (cotizacion.length === 0) ?  <div> Cargando Monto ....</div>: 
-                            <p className="form-text">$ {cotizacion.costo_total}</p>
-                        }
+                        
+                           
+                            <p className="form-text">$300000.00</p>
+                        
                     </form>
-                    {
-                        (cotizacion.length === 0) ?  <div> Cargando Detalle ....</div> 
-                        :
+                    
                     <div>
 
                         <div className="resultado-costo_detalle">
                         <h2 className="resultado-costo_detalle--title">Detalles*:</h2>
-                        {
-                            (items.length > 0) ?   
-                                items.map( data => {
-                                         return <div>
+                        
+                           
+                                          
                                             
-                                            <h4 className="flex-container">
-                                            <div> {data.nombre}:</div>
-                                            <div>${data.precio_preferencial}</div>
+                                    <h4 className="flex-container">
+                                    <div> Diagnóstico:</div>
+                                    <div> $60,000</div>
+                                    </h4>
+                                
+                                    <p> Mamografía / Radiografía / Tomografía</p>
+                                        
+                                    <h4 className="flex-container">
+                                            <div> Diagnóstico:</div>
+                                            <div> $60,000</div>
                                             </h4>
-                                            {/* <p>{data.detalle}</p> */}
-                                            <p> Descripción del diagnóstico </p>
-                                        </div> 
-                                    })
+                                        
+                                            <p> Mamografía / Radiografía / Tomografía</p>
+
+                                    <h4 className="flex-container">
+                                            <div> Diagnóstico:</div>
+                                            <div> $60,000</div>
+                                            </h4>
+                                        
+                                            <p> Mamografía / Radiografía / Tomografía</p>
+
+                                    <h4 className="flex-container">
+                                            <div> Diagnóstico:</div>
+                                            <div> $60,000</div>
+                                            </h4>
+                                        
+                                            <p> Mamografía / Radiografía / Tomografía</p>
+                                            <h4 className="flex-container">
+                                            <div> Diagnóstico:</div>
+                                            <div> $60,000</div>
+                                            </h4>
+                                        
+                                            <p> Mamografía / Radiografía / Tomografía</p>
 
                             
-                             : 
-                             <div>Cargando ....</div>
-                        }
+                             
+                     
+                        
 
                                 <h4 className="flex-container">
                                    <div> Total por 1 año</div>
-                                    <div>${cotizacion.costo_total}</div>
+                                    <div>$3000000.00</div>
                                 </h4>
 
 
                         </div>
                     </div>
                         
-                    }
-                     
-                </div>
+            
+                
+                    
+                </div> 
+         
 
                 <div className="resultado-costo_buttons">
                    
