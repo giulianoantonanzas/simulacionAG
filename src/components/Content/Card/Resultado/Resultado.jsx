@@ -58,38 +58,33 @@ const Resultado = () =>{
         // Para comenzar todo desde cero
         setPaso( {
             id: 1,
-            // --Perfil-- //
             genre: '',
             edad: '',
-            //--------------//
-            //-- Seguro --//
             aseguradora: '',
             suma_asegurada: '', 
             coaseguro: '', 
             deducible: '', 
             vigencia: '',
-            //-----------------//
-            //-- Diagnostico --//
             mama: '', 
             hormonal: '', 
             her: '', 
             brca: '',
-            //------------------//
-            //-- Centro --//
             centro:'',
-            //-----------------//
-            //-- Datos enviados Backend e.g Perfil 1 --//
+       
             id_receptor_hormonal: 1,	
             id_status_her: 1,	
             id_status_brca: 3,	
             id_etapa_cdm: 1,	
             id_aseguradora: 1,	
             id_institucion: 1,
-            //suma_asegurada: 0,
-            //deducible: 0,
-            //coaseguro: 0,  
-            //------------------------//
         });
+    }
+
+    function handleDescargarSimulacion(e) {
+        e.preventDefault();
+
+        Simulacion.postDescargarSimulacion(nroSimulacion, paso)
+        .then(res => console.log(res));
     }
 
     function handleChangeInstituto(e) {
@@ -243,7 +238,7 @@ const Resultado = () =>{
                 <div className="resultado-costo_buttons">
                    
                         <button className="btn btn-generar marginRight" onClick={handleGenerar}>Generar Preaprobación</button>
-                        <button className="btn btn-descargar marginRight">Descargar Simulacion</button>
+                        <button className="btn btn-descargar marginRight" onClick={handleDescargarSimulacion}>Descargar Simulacion</button>
                         <button className="btn btn-finalizar marginRight" onClick={handleFInalizar}>Finalizar Simulación</button>
                     
                 </div>
@@ -251,7 +246,8 @@ const Resultado = () =>{
                 <div className="resultado-legal">
                     <p>Legal que menciona que el resultado puede ser variable y que depende de la decisón de cada médico.</p>
                 </div>
-                {(contacto) ? <FormularioContacto /> : <div></div>}
+                {(contacto) ? <FormularioContacto nroSimulacion={nroSimulacion} costo_total={cotizacion.costo_total}/> 
+                : <div></div>}
         </div>
     )
 

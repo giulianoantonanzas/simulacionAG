@@ -13,7 +13,7 @@ const Perfil = () =>{
     const {paso, setPaso} = React.useContext(PasoContext);
 
     //Maneja cambios en genero y edad
-    const [perfil, setPerfil] = React.useState({genre: paso.genre, edad: paso.edad});
+    const [perfil, setPerfil] = React.useState({gender: paso.gender, edad: paso.edad});
 
     const buttonRef = React.useRef();
     const edadRef = React.useRef();
@@ -25,14 +25,14 @@ const Perfil = () =>{
 
     React.useEffect(()=>{
         buttonRef.current.disabled = true;
-            if(perfil.genre!='' && perfil.edad!==''){
+            if(perfil.gender!='' && perfil.edad!==''){
                 buttonRef.current.disabled = false;
                 edadRef.current.value = perfil.edad;
-                if(perfil.genre == 'M'){
+                if(perfil.gender == 'M'){
                     setButtonM("btn btn-perfil-activo");
                     setButtonF("btn btn-perfil");
                 }
-                if(perfil.genre == 'F'){
+                if(perfil.gender == 'F'){
                     setButtonF("btn btn-perfil-activo");
                     setButtonM("btn btn-perfil");
                 }
@@ -44,7 +44,7 @@ const Perfil = () =>{
 
     function handleClickM(e){
         e.preventDefault();
-        setPerfil({...perfil, genre: 'M'})
+        setPerfil({...perfil, gender: 'M'})
 
         setButtonM("btn btn-perfil-activo");
         setButtonF("btn btn-perfil");
@@ -52,7 +52,7 @@ const Perfil = () =>{
 
     function handleClickF(e){
         e.preventDefault();
-        setPerfil({...perfil, genre: 'F'})
+        setPerfil({...perfil, gender: 'F'})
 
         setButtonF("btn btn-perfil-activo");
         setButtonM("btn btn-perfil");
@@ -75,7 +75,7 @@ const Perfil = () =>{
         e.preventDefault();
 
         let i = paso.id + 1;
-        setPaso({...paso, id: i, genre: perfil.genre, edad: perfil.edad})
+        setPaso({...paso, id: i, gender: perfil.gender, edad: perfil.edad})
 
     }
 
@@ -95,10 +95,10 @@ const Perfil = () =>{
                 <form className="perfil-form">
                     <div className="perfil-form_input">
                         <button className={classButtonM} onClick={handleClickM}> 
-                        { perfil.genre == 'M' ? 
+                        { perfil.gender == 'M' ? 
                              <img src={iconMaleActive} alt="Male"/> : <img src={iconMale} alt="Male"/> }
                         </button>
-                        <button className={classButtonF} onClick={handleClickF}>    {   perfil.genre == 'F' ? 
+                        <button className={classButtonF} onClick={handleClickF}>    {   perfil.gender == 'F' ? 
                              <img src={iconFemaleActive} alt="Female"/> : <img src={iconFemale} alt="Female"/> }
                         </button>
                     </div>

@@ -172,7 +172,7 @@ const Seguro = () =>{
                     </div>
                     
                     <div className="seguro-form-control5">
-                           <label htmlFor="vigencia">Vigencia:</label>
+                           <label htmlFor="vigencia">Vigencia</label>
                            <input type="date" name="vigencia" onChange={handleChangeV}
                             value={seguro.vigencia} ref={vigenciaRef}/>
                     </div>

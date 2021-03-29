@@ -20,7 +20,7 @@
       
         &_card {
             margin: 3rem 0;
-            padding: 3rem;
+            padding: 3rem 6rem;
             background-color: #BDBDBD;
             border-radius: 1.4rem;
  
@@ -39,6 +39,10 @@
                     padding: 0;
                 }
 
+                label {
+                    margin-left: 2rem;
+                }
+
             }
         }
     }
@@ -52,13 +56,17 @@
         align-items: center;
         
       
-        input[type=text] {
+        input[type=text], input[type=date]  
+        {
             background-color: #F2F2F2;
-            min-width: 36rem;
+            min-width: 45rem;
             color: black;
             border-radius: 1.6rem;
-    
+            align-self: flex-start;
+            justify-self: start;
         }
+
+        
 
 
         
