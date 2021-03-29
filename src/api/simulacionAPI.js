@@ -63,19 +63,32 @@ export default  {
     //Pedir datos de cotizacion
 
     postCotizacion: (paso) => {
+        // const data = {
+        //     id_receptor_hormonal: paso.id_receptor_hormonal,	
+        //     id_status_her: paso.id_status_her,	
+        //     id_status_brca: paso.id_status_brca,	
+        //     id_etapa_cdm: paso.id_etapa_cdm,	
+        //     id_aseguradora: paso.id_aseguradora,	
+        //     id_institucion: paso.id_institucion,
+        //     suma_asegurada: paso.suma_asegurada, 
+        //     deducible: paso.deducible, 
+        //     coaseguro: paso.coaseguro, 
+        // }
+
         const data = {
             id_receptor_hormonal: 1,	
             id_status_her: 1,	
             id_status_brca: 3,	
             id_etapa_cdm: 1,	
             id_aseguradora: 1,	
-            id_institucion: 1,
-            suma_asegurada: 10000, 
-            deducible: 37.50, 
-            coaseguro: 12, 
+            id_institucion: paso.id_institucion,
+            suma_asegurada: paso.suma_asegurada, 
+            deducible: paso.deducible, 
+            coaseguro: paso.coaseguro, 
         }
 
-        console.log(paso);
+        //console.log('datos pasados: ',paso);
+        //console.log('datos enviados: ', data)
 
         return axios.post(globalURL + 'cotizacion', data)
         .then( res => res.data)

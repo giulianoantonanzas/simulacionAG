@@ -6,13 +6,13 @@ const pasoHard = {
     id: 1,
     // --Perfil-- //
     genre: '',
-    edad: 0,
+    edad: '',
     //--------------//
     //-- Seguro --//
     aseguradora: '',
-    suma_asegurada: 0, 
-    deducible: 0, 
-    coaseguro: 0, 
+    suma_asegurada: '', 
+    coaseguro: '', 
+    deducible: '', 
     vigencia: '',
     //-----------------//
     //-- Diagnostico --//
@@ -31,9 +31,9 @@ const pasoHard = {
     id_etapa_cdm: 1,	
     id_aseguradora: 1,	
     id_institucion: 1,
-    //suma_asegurada: 0, -> suma
-    //deducible: 0, -> idem
-    //coaseguro: 0,  -> coasegura
+    //suma_asegurada: 0,
+    //deducible: 0,
+    //coaseguro: 0,  
     //------------------------//
 }
 

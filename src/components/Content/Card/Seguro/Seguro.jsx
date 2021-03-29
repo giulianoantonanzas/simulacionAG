@@ -3,7 +3,6 @@ import { PasoContext } from '../../../../context/PasoContext';
 
 import Simulacion from '../../../../api/simulacionAPI';
 
-const matriz = [{id: 1, name: "gonzalo"},{id: 3, name: "zalo" },{id: 2, name: "lo" }]
 
 const Seguro = () =>{
 
@@ -27,7 +26,8 @@ const Seguro = () =>{
 
     React.useEffect(()=>{
         buttonRef.current.disabled = true;
-            if(seguro.aseguradora !== '' && seguro.suma_asegurada!== 0 && seguro.deducible !== 0 && seguro.coasegura !== 0 && seguro.vigencia!==''){
+            if(seguro.aseguradora !=='' && seguro.suma_asegurada!=='' && seguro.deducible !=='' 
+            && seguro.coaseguro !=='' && seguro.vigencia!==''){
                 buttonRef.current.disabled = false;
                 
             }
@@ -35,8 +35,7 @@ const Seguro = () =>{
         if(!listaS.length){
             Simulacion.getAseguradoras().then(data => setListaS(data));
         }
-
-        console.log('Seguro: ', seguro)
+        // console.log('Seguro: ', seguro)
 
     },[seguro])
    
@@ -88,19 +87,21 @@ const Seguro = () =>{
         switch(e.target.name){
             case 'suma':{
                 e.target.value = '';
+                setSeguro({...seguro,suma_asegurada: e.target.value}); 
                 break;
             }
             case 'deducible':{
                 e.target.value = '';
+                setSeguro({...seguro,deducible: e.target.value}); 
                 break;
             }
-            case 'coasegura':{
+            case 'coaseguro':{
                 e.target.value = '';
+                setSeguro({...seguro,coaseguro: e.target.value}); 
                 break;
-            }
-            
-            
+            } 
         }
+        // console.log('Seguro: ', seguro);
 
     }
 
@@ -125,7 +126,7 @@ const Seguro = () =>{
 
                 <form className="seguro-form" onSubmit={submitForm}>
                     <div className="seguro-form-control1">
-                    <label htmlFor="aseguradora">Aseguradora</label>
+                    <label htmlFor="aseguradora">Aseguradora:</label>
                         
                         {
                         (seguro.aseguradora!=='')?
@@ -172,7 +173,8 @@ const Seguro = () =>{
                     
                     <div className="seguro-form-control5">
                            <label htmlFor="vigencia">Vigencia:</label>
-                           <input type="date" name="vigencia" onChange={handleChangeV} value={seguro.vigencia} ref={vigenciaRef}/>
+                           <input type="date" name="vigencia" onChange={handleChangeV}
+                            value={seguro.vigencia} ref={vigenciaRef}/>
                     </div>
 
                     <div className="seguro-form-control6">

@@ -25,7 +25,7 @@ const Perfil = () =>{
 
     React.useEffect(()=>{
         buttonRef.current.disabled = true;
-            if(perfil.genre!='' && perfil.edad!=0){
+            if(perfil.genre!='' && perfil.edad!==''){
                 buttonRef.current.disabled = false;
                 edadRef.current.value = perfil.edad;
                 if(perfil.genre == 'M'){
@@ -52,7 +52,6 @@ const Perfil = () =>{
 
     function handleClickF(e){
         e.preventDefault();
-        console.log(perfil)
         setPerfil({...perfil, genre: 'F'})
 
         setButtonF("btn btn-perfil-activo");
@@ -108,14 +107,14 @@ const Perfil = () =>{
 
                     <div className="text-age">
                         <input type="text" name="edad" placeholder="Edad"
-                        pattern="[0-9]*"
+                         pattern="[0-9]*"
                          ref={edadRef}
                          value={perfil.edad}
                          onChange={handleEdad}
                          onClick={handleClick}
                          autoComplete="false"
                          />
-                        <label id="edad"> Años </label>
+                        <label id="edad"> años </label>
                     </div>
 
                     

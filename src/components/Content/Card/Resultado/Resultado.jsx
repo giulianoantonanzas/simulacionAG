@@ -23,15 +23,15 @@ const Resultado = () =>{
 
     React.useEffect(()=>{
         Simulacion.getInstituciones().then(data => setListaI(data))
-        // Simulacion.postCotizacion(paso).then(data => {
-        //     setCotizacion(data); 
-        //     console.log(cotizacion)
-        //     setItems(data["items"]);
-        // })
-        // .catch(err => console.log(err));
+        Simulacion.postCotizacion(paso).then(data => {
+            setCotizacion(data); 
+          //  console.log(cotizacion)
+            setItems(data["items"]);
+        })
+        .catch(err => console.log(err));
 
         setNroSimulacion(Math.floor(Math.random() *100) + 112233);
-        console.log(nroSimulacion);
+       // console.log(nroSimulacion);
     },[])
 
     //  console.log(items);
@@ -51,12 +51,55 @@ const Resultado = () =>{
         setPaso({...paso, id: 4})
     }
 
-    function handleChangeInstituto(e) {
-        e. preventDefault();
+    function handleFInalizar(e) {
+        e.preventDefault();
 
+        // Iniciliza todos los valores de Paso
+        // Para comenzar todo desde cero
+        setPaso( {
+            id: 1,
+            // --Perfil-- //
+            genre: '',
+            edad: '',
+            //--------------//
+            //-- Seguro --//
+            aseguradora: '',
+            suma_asegurada: '', 
+            coaseguro: '', 
+            deducible: '', 
+            vigencia: '',
+            //-----------------//
+            //-- Diagnostico --//
+            mama: '', 
+            hormonal: '', 
+            her: '', 
+            brca: '',
+            //------------------//
+            //-- Centro --//
+            centro:'',
+            //-----------------//
+            //-- Datos enviados Backend e.g Perfil 1 --//
+            id_receptor_hormonal: 1,	
+            id_status_her: 1,	
+            id_status_brca: 3,	
+            id_etapa_cdm: 1,	
+            id_aseguradora: 1,	
+            id_institucion: 1,
+            //suma_asegurada: 0,
+            //deducible: 0,
+            //coaseguro: 0,  
+            //------------------------//
+        });
+    }
+
+    function handleChangeInstituto(e) {
+        e.preventDefault();
+
+      //   console.log('Change instituciones: ',e.target.value);
+         setPaso({...paso, id_institucion: e.target.value})
         Simulacion.postCotizacion(paso).then(data => {
             setCotizacion(data); 
-            console.log(cotizacion)
+        //    console.log(cotizacion)
             setItems(data["items"]);
         })
         .catch(err => console.log(err));
@@ -141,71 +184,49 @@ const Resultado = () =>{
                     <form className="costo-form">
                         
                             <div className="form-control">
-                                <select name="instituciones" id="instituciones">
-                                    <option value="Select" disabled>Seleccionar</option>
+                                <select name="instituciones" id="instituciones" onChange={handleChangeInstituto}>
+                                    <option value="Select" selected={true} disabled>Seleccionar</option>
                                 {
                                     listaI.map((item)=>{
-                                        return <option value={item.nombre}>{item.nombre}</option>
+                                        return <option value={item.id}>{item.nombre}</option>
                                     })
                                 }
                                 </select>
                             </div>
-                        
-                           
-                            <p className="form-text">$300000.00</p>
-                        
+                        {
+                            (cotizacion.length === 0) ?  <div> Cargando Monto ....</div>: 
+                            <p className="form-text">$ {cotizacion.costo_total}</p>
+                        }
                     </form>
+                     {
                     
+                        (cotizacion.length === 0) ?  <div> Cargando Detalle ....</div> 
+                        :
                     <div>
 
                         <div className="resultado-costo_detalle">
                         <h2 className="resultado-costo_detalle--title">Detalles*:</h2>
-                        
-                           
-                                          
+                        {
+                            (items.length > 0) ?   
+                                items.map( data => {
+                                         return <div>
                                             
-                                    <h4 className="flex-container">
-                                    <div> Diagnóstico:</div>
-                                    <div> $60,000</div>
-                                    </h4>
-                                
-                                    <p> Mamografía / Radiografía / Tomografía</p>
-                                        
-                                    <h4 className="flex-container">
-                                            <div> Diagnóstico:</div>
-                                            <div> $60,000</div>
-                                            </h4>
-                                        
-                                            <p> Mamografía / Radiografía / Tomografía</p>
-
-                                    <h4 className="flex-container">
-                                            <div> Diagnóstico:</div>
-                                            <div> $60,000</div>
-                                            </h4>
-                                        
-                                            <p> Mamografía / Radiografía / Tomografía</p>
-
-                                    <h4 className="flex-container">
-                                            <div> Diagnóstico:</div>
-                                            <div> $60,000</div>
-                                            </h4>
-                                        
-                                            <p> Mamografía / Radiografía / Tomografía</p>
                                             <h4 className="flex-container">
-                                            <div> Diagnóstico:</div>
-                                            <div> $60,000</div>
+                                            <div> {data.nombre}:</div>
+                                            <div>${data.precio_preferencial}</div>
                                             </h4>
-                                        
-                                            <p> Mamografía / Radiografía / Tomografía</p>
+                                            <p> {data.detalle} </p>
+                                        </div> 
+                                    })
 
                             
-                             
-                     
-                        
+                             : 
+                             <div>Cargando ....</div>
+                        }
 
                                 <h4 className="flex-container">
                                    <div> Total por 1 año</div>
-                                    <div>$3000000.00</div>
+                                    <div>${cotizacion.costo_total}</div>
                                 </h4>
 
 
@@ -213,16 +234,17 @@ const Resultado = () =>{
                     </div>
                         
             
-                
+                }
                     
                 </div> 
-         
+                {/* FIN RESULTADOS */}
 
+                
                 <div className="resultado-costo_buttons">
                    
                         <button className="btn btn-generar marginRight" onClick={handleGenerar}>Generar Preaprobación</button>
                         <button className="btn btn-descargar marginRight">Descargar Simulacion</button>
-                        <button className="btn btn-finalizar marginRight">Finalizar Simulación</button>
+                        <button className="btn btn-finalizar marginRight" onClick={handleFInalizar}>Finalizar Simulación</button>
                     
                 </div>
 

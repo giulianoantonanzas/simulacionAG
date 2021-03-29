@@ -48,7 +48,7 @@ const Diagnostico = () =>{
                 Simulacion.getBRCA().then(data => setBRCA(data))
             }
             //--------------------------------------//
-            console.log('diagnostico', diagnostico);
+           // console.log('diagnostico', diagnostico);
 
     },[diagnostico])
 
@@ -88,13 +88,13 @@ const Diagnostico = () =>{
             && listaHer.length!==0 && listaBRCA.length!==0){
 
             const mamaID = listaMama.filter(data => data.nombre === diagnostico.mama)
-            console.log(mamaID);
+          //  console.log(mamaID);
             const hormonalID = listaHormonal.filter(data => data.nombre === diagnostico.hormonal)
-            console.log(hormonalID[0].id);
+          //  console.log(hormonalID[0].id);
             const herID = listaHer.filter(data => data.nombre === diagnostico.her)
-            console.log(herID[0].id);
+          //  console.log(herID[0].id);
             const brcaID = listaBRCA.filter(data => data.nombre === diagnostico.brca)
-            console.log(brcaID[0].id);
+          //  console.log(brcaID[0].id);
             
             // console.log(diagnostico);
             let i = paso.id + 1;
@@ -113,7 +113,7 @@ const Diagnostico = () =>{
 
                 <form className="diagnostico-form">
                     <div className="form-control">
-                        <label htmlFor="mama">Etapa del cáncer de mama</label>
+                        <label htmlFor="mama">Etapa del cáncer de mama:</label>
                         {/* condicion si hay datos guardados en PasoContext */}
                         {
                         (diagnostico.mama!=='')?
@@ -143,7 +143,7 @@ const Diagnostico = () =>{
                     </div>
 
                     <div className="form-control">
-                        <label htmlFor="hormonal">Receptor Hormonal</label>
+                        <label htmlFor="hormonal">Receptor Hormonal:</label>
                         {
                         (diagnostico.hormonal!=='')?
                         // Si hay datos en PasoContext muestra el valor al usuario
@@ -171,7 +171,7 @@ const Diagnostico = () =>{
                     </div>
 
                     <div className="form-control">
-                        <label htmlFor="her">Estatus de HER2</label>
+                        <label htmlFor="her">Estatus de HER2:</label>
                        
                         {
                         (diagnostico.her!=='')?
@@ -198,7 +198,7 @@ const Diagnostico = () =>{
                     </div>
 
                     <div className="form-control">
-                        <label htmlFor="brca">Estatus de BRCA</label>
+                        <label htmlFor="brca">Estatus de BRCA:</label>
                        
                         {
                         (diagnostico.brca!=='')?
