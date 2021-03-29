@@ -14,7 +14,7 @@
         padding: 5rem;
         // background-color: bisque;
         display: flex;
-        flex-flow: column wrap;
+        flex-flow: column nowrap;
         justify-content: center;
         align-items: center;
       
@@ -23,6 +23,7 @@
             padding: 3rem 6rem;
             background-color: #BDBDBD;
             border-radius: 1.4rem;
+            // width: 80%;
  
             display: flex;
             flex-flow: column wrap;
@@ -44,6 +45,10 @@
                 }
 
             }
+            @media only screen and (max-width: 768px) {
+                padding: 0;
+                width: 100%;
+            }
         }
     }
 
@@ -59,7 +64,9 @@
         input[type=text], input[type=date]  
         {
             background-color: #F2F2F2;
-            min-width: 45rem;
+            min-width: 11rem;
+            max-width: 55rem;
+            width: 45rem;
             color: black;
             border-radius: 1.6rem;
             align-self: flex-start;

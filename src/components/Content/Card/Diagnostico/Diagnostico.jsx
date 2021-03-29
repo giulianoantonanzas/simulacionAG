@@ -12,6 +12,8 @@ const Diagnostico = () =>{
     const [listaHer, setHer] = React.useState([]);
     const [listaBRCA, setBRCA] = React.useState([]);
 
+    const [showMsg, setShowMsg] = React.useState(true);
+
     const [diagnostico, setDiagnostico] = React.useState({mama: paso.mama, 
     hormonal: paso.hormonal, 
     her: paso.her, 
@@ -31,6 +33,7 @@ const Diagnostico = () =>{
             if(diagnostico.mama!= '' && diagnostico.hormonal!= '' 
             && diagnostico.her!= '' && diagnostico.brca!=''){
                 buttonRef.current.disabled = false;
+                setShowMsg(false);
 
             }
 
@@ -49,6 +52,7 @@ const Diagnostico = () =>{
             }
             //--------------------------------------//
            // console.log('diagnostico', diagnostico);
+           console.log(buttonRef.current.disabled);
 
     },[diagnostico])
 
@@ -227,9 +231,15 @@ const Diagnostico = () =>{
                 </form>
                 <button className="btn btn-siguiente" onClick={handleSiguiente} ref={buttonRef}>Siguiente</button>
 
+                    
+                    <p hidden={showMsg}>Para generar una simulación más exacta, 
+                    es necesario contar con todos los datos solicitados. 
+                    Pregunta a tu médico por tu <strong>Estatus de BRCA</strong>
+                    </p>
+                
+                
 
-
-            </div>
+</div>
     )
 
 }

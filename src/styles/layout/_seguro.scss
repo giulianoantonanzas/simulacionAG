@@ -13,6 +13,8 @@
 
         display: grid;
 
+        width: 90%;
+
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(3, 17rem);
         grid-gap: 1.5rem;
@@ -37,8 +39,19 @@
                 flex-direction: row;
                 align-items: center;
             }
-            border-right: 1px solid black;
+            
             padding: 1.4rem;
+        }
+
+        &-control1,
+        &-control2,
+        &-control3{
+            border-right: 1px solid black;
+
+            @media only screen and (max-width: 768px) {
+                border-right: none;
+            }
+
         }
      
         
@@ -60,6 +73,7 @@
                 // display: flex;
                 flex-flow: column wrap; 
                 transform: translate(0);
+                
                 label {
                     margin-right: 0;
                 }
@@ -82,8 +96,28 @@
             display: flex;
             flex-flow: column wrap; 
             margin: 0;
+            
         }
 
+        // -- Input -- //
+        &-control2{
+            input[type=text] {
+                width: 25rem;  
+            }
+        }
+
+        &-control3{
+            input[type=text] {
+                width: 19rem;  
+            }
+        }
+
+        &-control4{
+            input[type=text] {
+                width: 11rem;
+                
+            }
+        }
 
 
     }

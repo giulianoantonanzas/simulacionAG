@@ -82,7 +82,7 @@ const FormularioContacto = ({nroSimulacion,costo_total}) => {
 
                         <div className="form-control">
                             <label htmlFor="birth">Fecha de Nacimiento: </label>
-                            <input type="date" name="birth" value={user.apellido_pa} onChange={handleChange}/>
+                            <input type="date" name="birth" value={user.fecha_nac} onChange={handleChange}/>
                         </div>
 
                         <div className="form-control">

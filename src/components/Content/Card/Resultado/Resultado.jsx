@@ -25,7 +25,7 @@ const Resultado = () =>{
         Simulacion.getInstituciones().then(data => setListaI(data))
         Simulacion.postCotizacion(paso).then(data => {
             setCotizacion(data); 
-          //  console.log(cotizacion)
+            console.log(cotizacion)
             setItems(data["items"]);
         })
         .catch(err => console.log(err));
@@ -204,7 +204,7 @@ const Resultado = () =>{
                         {
                             (items.length > 0) ?   
                                 items.map( data => {
-                                         return <div>
+                                         return <div >
                                             
                                             <h4 className="flex-container">
                                             <div> {data.nombre}:</div>
