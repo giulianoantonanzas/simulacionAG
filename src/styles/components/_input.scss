@@ -52,6 +52,18 @@ select {
     font-size: 1.8rem;
     -webkit-appearance: none;
     -moz-appearance: none;
+    position: relative;
+
+    option {
+        color: white;
+        max-width: 110px !important;
+        // min-width: 320px;
+        // width: 100%;
+        height: 20px;
+        text-decoration: underline;
+        border-radius: 1.6rem;
+        position: absolute;
+      }
 }
 
 label {

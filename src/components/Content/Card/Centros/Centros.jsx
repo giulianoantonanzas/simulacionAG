@@ -12,12 +12,12 @@ const Centros = () =>{
         buttonRef.current.disabled = true;
             if(centro!=''){
                 buttonRef.current.disabled = false;
-                if(centro == 'Oncologico'){
-                    setCentro('Oncologico');
+                if(centro == 'Centro Oncológico'){
+                    setCentro('Centro Oncológico');
                     setClassO('btn btn-centros activo');
                     setClassE('btn btn-centros');
                 }else {
-                    setCentro('Multidiscuplinario');
+                    setCentro('Enfoque Multidisciplinario');
 
                     setClassE('btn btn-centros activo');
                     setClassO('btn btn-centros');
@@ -31,7 +31,7 @@ const Centros = () =>{
     function handleClickO(e) {
         e.preventDefault();
 
-        setCentro('Oncologico');
+        setCentro('Centro Oncológico');
         setClassO('btn btn-centros activo')
         setClassE('btn btn-centros')
     }
@@ -39,7 +39,7 @@ const Centros = () =>{
     function handleClickE(e) {
         e.preventDefault();
 
-        setCentro('Multidiscuplinario');
+        setCentro('Enfoque Multidisciplinario');
 
         setClassE('btn btn-centros activo')
         setClassO('btn btn-centros')

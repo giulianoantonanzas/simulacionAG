@@ -28,11 +28,11 @@ const Perfil = () =>{
             if(perfil.gender!='' && perfil.edad!==''){
                 buttonRef.current.disabled = false;
                 edadRef.current.value = perfil.edad;
-                if(perfil.gender == 'M'){
+                if(perfil.gender == 'Masculino'){
                     setButtonM("btn btn-perfil-activo");
                     setButtonF("btn btn-perfil");
                 }
-                if(perfil.gender == 'F'){
+                if(perfil.gender == 'Femenino'){
                     setButtonF("btn btn-perfil-activo");
                     setButtonM("btn btn-perfil");
                 }
@@ -44,7 +44,7 @@ const Perfil = () =>{
 
     function handleClickM(e){
         e.preventDefault();
-        setPerfil({...perfil, gender: 'M'})
+        setPerfil({...perfil, gender: 'Masculino'})
 
         setButtonM("btn btn-perfil-activo");
         setButtonF("btn btn-perfil");
@@ -52,7 +52,7 @@ const Perfil = () =>{
 
     function handleClickF(e){
         e.preventDefault();
-        setPerfil({...perfil, gender: 'F'})
+        setPerfil({...perfil, gender: 'Femenino'})
 
         setButtonF("btn btn-perfil-activo");
         setButtonM("btn btn-perfil");
@@ -95,10 +95,10 @@ const Perfil = () =>{
                 <form className="perfil-form">
                     <div className="perfil-form_input">
                         <button className={classButtonM} onClick={handleClickM}> 
-                        { perfil.gender == 'M' ? 
+                        { perfil.gender == 'Masculino' ? 
                              <img src={iconMaleActive} alt="Male"/> : <img src={iconMale} alt="Male"/> }
                         </button>
-                        <button className={classButtonF} onClick={handleClickF}>    {   perfil.gender == 'F' ? 
+                        <button className={classButtonF} onClick={handleClickF}>    {   perfil.gender == 'Femenino' ? 
                              <img src={iconFemaleActive} alt="Female"/> : <img src={iconFemale} alt="Female"/> }
                         </button>
                     </div>
