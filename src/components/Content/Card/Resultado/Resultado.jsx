@@ -204,7 +204,7 @@ const Resultado = () =>{
                         {
                             (items.length > 0) ?   
                                 items.map( data => {
-                                         return <div >
+                                         return <div className="flex-column">
                                             
                                             <h4 className="flex-container">
                                             <div> {data.nombre}:</div>
