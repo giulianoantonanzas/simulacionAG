@@ -125,51 +125,55 @@ const Seguro = () =>{
                 </p>
 
                 <form className="seguro-form" onSubmit={submitForm}>
-                    <div className="seguro-form-control1">
-                    <label htmlFor="aseguradora">Aseguradora:</label>
-                        
-                        {
-                        (seguro.aseguradora!=='')?
-                        // Si hay datos en PasoContext muestra el valor al usuario
-                        <select name="aseguradora" id="aseguradora" onChange={handleChangeA} value={seguro.aseguradora} ref={aseguradoraRef}>
-                        <option value="select" selected disabled>Seleccionar</option>
-                        {
-                            listaS.map((item)=>{
-                                return (                                    
-                                <option key={item.id} value={item.nombre}>{item.nombre}</option>
-                                )
-                            })
-                        }
-                        </select>
-                        :
-                        //Si  no hay valor en PasoConext le da a elegir
-                        <select name="aseguradora" id="aseguradora" onChange={handleChangeA} ref={aseguradoraRef}>
-                        <option value="select" selected disabled>Seleccionar</option>
-                        {
-                            listaS.map((item)=>{
-                                return (                                    
-                                <option key={item.id} value={item.nombre}>{item.nombre}</option>
-                                )
-                            })
-                        }
-                        </select>
-                        }
-                    </div>
+                    <div className="flex-container">
+                        <div className="flex-row">
+                            <div className="seguro-form-control1">
+                            <label htmlFor="aseguradora">Aseguradora:</label>
+                                
+                                {
+                                (seguro.aseguradora!=='')?
+                                // Si hay datos en PasoContext muestra el valor al usuario
+                                <select name="aseguradora" id="aseguradora" onChange={handleChangeA} value={seguro.aseguradora} ref={aseguradoraRef}>
+                                <option value="select" selected disabled>Seleccionar</option>
+                                {
+                                    listaS.map((item)=>{
+                                        return (                                    
+                                        <option key={item.id} value={item.nombre}>{item.nombre}</option>
+                                        )
+                                    })
+                                }
+                                </select>
+                                :
+                                //Si  no hay valor en PasoConext le da a elegir
+                                <select name="aseguradora" id="aseguradora" onChange={handleChangeA} ref={aseguradoraRef}>
+                                <option value="select" selected disabled>Seleccionar</option>
+                                {
+                                    listaS.map((item)=>{
+                                        return (                                    
+                                        <option key={item.id} value={item.nombre}>{item.nombre}</option>
+                                        )
+                                    })
+                                }
+                                </select>
+                                }
+                            </div>
 
-                    <div className="seguro-form-control2">
-                        <label htmlFor="suma">Suma asegurada:</label>
-                        <span>$<input type="text" name="suma" onChange={handleChangeS} onClick={handleClick} value={seguro.suma_asegurada} ref={sumaRef}/></span>
-                    </div>
+                            <div className="seguro-form-control2">
+                                <label htmlFor="suma">Suma asegurada:</label>
+                                <span>$<input type="text" name="suma" onChange={handleChangeS} onClick={handleClick} value={seguro.suma_asegurada} ref={sumaRef}/></span>
+                            </div>
 
-                    <div className="seguro-form-control3">
-                        <label htmlFor="deducible">Deducible:</label>
-                        <span>$<input type="text" name="deducible" onChange={handleChangeD} onClick={handleClick} value={seguro.deducible} ref={deducibleRef}/></span>
-                    </div>
+                            <div className="seguro-form-control3">
+                                <label htmlFor="deducible">Deducible:</label>
+                                <span>$<input type="text" name="deducible" onChange={handleChangeD} onClick={handleClick} value={seguro.deducible} ref={deducibleRef}/></span>
+                            </div>
 
-                    <div className="seguro-form-control4">
-                        <label htmlFor="coasegura">Coaseguro:</label>
-                        <span><input type="text" name="coasegura" onChange={handleChangeC} onClick={handleClick} value={seguro.coaseguro} ref={coaseguraRef}/>%</span>
-                    </div>
+                            <div className="seguro-form-control4">
+                                <label htmlFor="coasegura">Coaseguro:</label>
+                                <span><input type="text" name="coasegura" onChange={handleChangeC} onClick={handleClick} value={seguro.coaseguro} ref={coaseguraRef}/>%</span>
+                            </div>
+
+                    </div> {/* fin flex-row */}
                     
                     <div className="seguro-form-control5">
                            <label htmlFor="vigencia">Vigencia</label>
@@ -180,7 +184,8 @@ const Seguro = () =>{
                     <div className="seguro-form-control6">
                         <input  className="btn btn-siguiente" ref={buttonRef}   value="Siguiente" type="submit"/>
                     </div>
-
+                
+                </div> {/* Fin flex-container */}
                 </form>
 
                
