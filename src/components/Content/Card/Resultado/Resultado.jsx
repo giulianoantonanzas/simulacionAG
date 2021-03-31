@@ -25,7 +25,7 @@ const Resultado = () =>{
         Simulacion.getInstituciones().then(data => setListaI(data))
         Simulacion.postCotizacion(paso).then(data => {
             setCotizacion(data); 
-            console.log(cotizacion)
+             console.log(cotizacion)
             setItems(data["items"]);
         })
         .catch(err => console.log(err));
@@ -90,11 +90,13 @@ const Resultado = () =>{
     function handleChangeInstituto(e) {
         e.preventDefault();
 
-      //   console.log('Change instituciones: ',e.target.value);
+        //  console.log('Change instituciones: ',e.target.value);
          setPaso({...paso, id_institucion: e.target.value})
+         setCotizacion([]);
+         setItems([]);
         Simulacion.postCotizacion(paso).then(data => {
             setCotizacion(data); 
-        //    console.log(cotizacion)
+            // console.log(cotizacion)
             setItems(data["items"]);
         })
         .catch(err => console.log(err));
@@ -142,31 +144,31 @@ const Resultado = () =>{
 
                         <div className="flex-item2">
                             <div className="card2">
-                                    <div>
+                                    <div className="flex-row">
                                     <h3>Resumen del Diagnóstico </h3>
                                         <button className="btn-edit" onClick={handleClickDiagnostico}>
                                             <img src={iconEdit} alt="edit"/>
                                         </button>
                                     </div>
-                                    <div> 
+                                     <div className="grid-container"> 
                                     <h4>Etapa del cáncer de mama:</h4>
-                                    {paso.mama}
+                                    <p>{paso.mama}</p>
                                     </div> 
-                                    <div> 
+                                    <div className="grid-container"> 
                                     <h4>Receptor Hormonal:</h4>
-                                    {paso.hormonal}
+                                    <p>{paso.hormonal}</p>
                                     </div> 
-                                    <div> 
+                                    <div className="grid-container"> 
                                     <h4>Estatus de HER2:</h4>
-                                    {paso.her}
+                                    <p>{paso.her}</p>
                                     </div> 
-                                    <div> 
+                                    <div className="grid-container">  
                                     <h4>Estatus de BRCA:</h4>
-                                    {paso.brca}
+                                    <p>{paso.brca}</p>
                                     </div> 
                             </div>
                            
-                        </div> {/*--- FIN FLEX--- */}
+                        </div> {/*--- FIN FLEX-CONTAINER--- */}
 
                     </div>
 

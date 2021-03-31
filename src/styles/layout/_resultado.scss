@@ -15,10 +15,10 @@
 
         .flex {
             display: flex;
-            flex-flow: row wrap;
+            flex-wrap: nowrap;
             justify-content: space-between;
 
-            @media (min-width: 360px) and (max-width: 768px) {
+            @media only screen  and (max-width: 768px) {
                 flex-flow: column nowrap;
 
                 &-item2 {
@@ -29,6 +29,7 @@
 
         
             }
+       
 
             &-item1 {
 
@@ -40,7 +41,7 @@
                      &--p {
                          margin-top: 1rem;
                      }
-                     @media (min-width: 360px) and (max-width: 768px) {
+                     @media  only screen and (max-width: 768px) {
                         &--p {
                             margin: 1rem 0;
                         }
@@ -73,7 +74,8 @@
         }
 
         .card2 {
-            max-width: 59rem;
+            max-width: 100rem;
+            min-width: 22rem;
             background: #BDBDBD;
             border-radius: 1.6rem;
             border: none;
@@ -85,14 +87,25 @@
                 width: 100%
             }
          
-            div {
+            .flex-row {
                 display: flex;
-                flex-flow: row nowrap;
+                flex-flow: row wrap;
                 justify-content: space-between;
                 margin: .5rem 0;
             }
+
+            .grid-container {
+                margin: .5rem 0;
+
+                display: grid;
+                grid-template-columns: repeat(2,1fr);
+
+                h4 {
+                    align-self: center;
+                }
+            }
                 
-        }
+        }// Fin card2
 
  
     } // resutado-datos

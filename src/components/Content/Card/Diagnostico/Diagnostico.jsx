@@ -51,7 +51,7 @@ const Diagnostico = () =>{
                 Simulacion.getBRCA().then(data => setBRCA(data))
             }
             //--------------------------------------//
-           // console.log('diagnostico', diagnostico);
+            console.log('diagnostico', diagnostico);
            console.log(buttonRef.current.disabled);
 
     },[diagnostico])
@@ -100,7 +100,7 @@ const Diagnostico = () =>{
             const brcaID = listaBRCA.filter(data => data.nombre === diagnostico.brca)
           //  console.log(brcaID[0].id);
             
-            // console.log(diagnostico);
+            //  console.log(diagnostico);
             let i = paso.id + 1;
             setPaso({...paso, id: i, 
                 id_etapa_cdm: mamaID[0].id,
