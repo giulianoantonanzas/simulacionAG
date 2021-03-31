@@ -191,13 +191,13 @@ const Resultado = () =>{
                                 </select>
                             </div>
                         {
-                            (cotizacion.length === 0) ?  <div> Cargando Monto ....</div>: 
+                            (cotizacion.length === 0) ?  <div className="cargando"> Cargando Monto ....</div>: 
                             <p className="form-text">$ {cotizacion.costo_total}</p>
                         }
                     </form>
                      {
                     
-                        (cotizacion.length === 0) ?  <div> Cargando Detalle ....</div> 
+                        (cotizacion.length === 0) ?  <div className="cargando"> Cargando Detalle ....</div> 
                         :
                     <div>
 
