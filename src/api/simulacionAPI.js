@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-const url = 'https://jsonplaceholder.typicode.com/users';
 
 const globalURL = 'https://cami.st4ging.dev/api/';
 
@@ -23,10 +22,6 @@ Example:
 */
 
 export default  {
-    getdata: () => {
-    return axios.get(url)
-            .then(data => data.data)
-    },
 
     getAseguradoras: () => {
         return axios.get(globalURL + 'aseguradora')

@@ -11,6 +11,8 @@ const FormularioContacto = ({nroSimulacion,costo_total}) => {
 
     const { register, handleSubmit,watch, errors } = useForm();
 
+  
+
     const {paso} = React.useContext(PasoContext);
 
     const [check, setCheck] = React.useState(false);
@@ -41,7 +43,7 @@ const FormularioContacto = ({nroSimulacion,costo_total}) => {
     function handleChange(e) {
         e.preventDefault();
 
-        
+                
         switch(e.target.name){
             case "name": {
                 setUser({...user, nombre: e.target.value});
@@ -80,35 +82,38 @@ const FormularioContacto = ({nroSimulacion,costo_total}) => {
                     <div className="contacto-form_card">
                         <div className="form-control">
                             <label htmlFor="name">Nombre(s): </label>
-                            <input type="text" name="name" value={user.nombre} onChange={handleChange} 
-                            ref={register({ required: true })}/>
+                            <input type="text" name="name"  onChange={handleChange} ref={register({ required: true })}/>
+              
                         </div>
                             {errors.name && <span className="alert-msg">Este campo es requerido (*)</span>}
 
                         <div className="form-control">
                             <label htmlFor="materno">Apellido Materno: </label>
-                            <input type="text" name="materno" value={user.apellido_ma} onChange={handleChange}
+                            <input type="text" name="materno"  onChange={handleChange}
                             ref={register({ required: true })}/>
+                         
                         </div>
                         {errors.materno && <span className="alert-msg">Este campo es requerido (*)</span>}
 
                         <div className="form-control">
                             <label htmlFor="paterno">Apellido Paterno: </label>
-                            <input type="text" name="paterno" value={user.apellido_pa} onChange={handleChange}
+                            <input type="text" name="paterno" onChange={handleChange}
                             ref={register({ required: true })}/>
+                           
                         </div>
                         {errors.paterno && <span className="alert-msg">Este campo es requerido (*)</span>}
 
                         <div className="form-control">
                             <label htmlFor="birth">Fecha de Nacimiento: </label>
-                            <input type="date" name="birth" value={user.fecha_nac} onChange={handleChange}
+                            <input type="date" name="birth" onChange={handleChange}
                             ref={register({ required: true })}/>
+                        
                         </div>
                         {errors.birth && <span className="alert-msg">Este campo es requerido (*)</span>}
 
                         <div className="form-control">
                             <label htmlFor="email">E-mail: </label>
-                            <input type="email" name="email" value={user.email} onChange={handleChange}
+                            <input type="email" name="email" onChange={handleChange}
                             ref={register({
                                 required: "El campo es requerido (*)",
                                 pattern: {
@@ -116,12 +121,13 @@ const FormularioContacto = ({nroSimulacion,costo_total}) => {
                                   message: "No es válido como email"
                                 }
                               })}/>
+                             
                         </div>
                         {errors.email && <span className="alert-msg">{errors.email.message}</span>}
 
                         <div className="form-control">
                             <label htmlFor="nropoliza">Número de Póliza: </label>
-                            <input type="text" name="nropoliza" value={user.poliza} onChange={handleChange}
+                            <input type="text" name="nropoliza" 
                               ref={register({
                                 required: "El campo es requerido (*)",
                                 pattern: {
@@ -129,6 +135,7 @@ const FormularioContacto = ({nroSimulacion,costo_total}) => {
                                   message: "No es válido como número"
                                 }
                               })}/>
+                           
                         </div>
                         {errors.nropoliza && <span className="alert-msg">{errors.nropoliza.message}</span>}
 
