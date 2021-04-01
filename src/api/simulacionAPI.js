@@ -20,6 +20,10 @@ Example:
 
 }
 */
+function convertCommatoDot(str) {
+    let num = parseFloat(str.replace(/\s/g, "").replace(",", "."));
+    return num;
+}
 
 export default  {
 
@@ -58,32 +62,19 @@ export default  {
     //Pedir datos de cotizacion
 
     postCotizacion: (paso) => {
-        // const data = {
-        //     id_receptor_hormonal: paso.id_receptor_hormonal,	
-        //     id_status_her: paso.id_status_her,	
-        //     id_status_brca: paso.id_status_brca,	
-        //     id_etapa_cdm: paso.id_etapa_cdm,	
-        //     id_aseguradora: paso.id_aseguradora,	
-        //     id_institucion: paso.id_institucion,
-        //     suma_asegurada: paso.suma_asegurada, 
-        //     deducible: paso.deducible, 
-        //     coaseguro: paso.coaseguro, 
-        // }
-
         const data = {
-            id_receptor_hormonal: 1,	
-            id_status_her: 1,	
-            id_status_brca: 3,	
-            id_etapa_cdm: 1,	
-            id_aseguradora: 1,	
+            id_receptor_hormonal: paso.id_receptor_hormonal,	
+            id_status_her: paso.id_status_her,	
+            id_status_brca: paso.id_status_brca,	
+            id_etapa_cdm: paso.id_etapa_cdm,	
+            id_aseguradora: paso.id_aseguradora,	
             id_institucion: paso.id_institucion,
-            suma_asegurada: paso.suma_asegurada, 
-            deducible: paso.deducible, 
+            suma_asegurada: convertCommatoDot(paso.suma_asegurada), 
+            deducible: convertCommatoDot(paso.deducible), 
             coaseguro: paso.coaseguro, 
         }
 
-        //console.log('datos pasados: ',paso);
-        //console.log('datos enviados: ', data)
+        //console.log("datos para cotizar: ",data);
 
         return axios.post(globalURL + 'cotizacion', data)
         .then( res => res.data)
@@ -92,18 +83,21 @@ export default  {
 
     postDescargarSimulacion: (identificador, paso) => {
 
+      
         const data = {
             identificador: identificador,
-            id_receptor_hormonal: 1,	
-            id_status_her: 1,	
-            id_status_brca: 3,	
-            id_etapa_cdm: 1,	
-            id_aseguradora: 1,	
+            id_receptor_hormonal: paso.id_receptor_hormonal,	
+            id_status_her: paso.id_status_her,	
+            id_status_brca: paso.id_status_brca,	
+            id_etapa_cdm: paso.id_etapa_cdm,	
+            id_aseguradora: paso.id_aseguradora,	
             id_institucion: paso.id_institucion,
-            suma_asegurada: paso.suma_asegurada, 
-            deducible: paso.deducible, 
+            suma_asegurada: convertCommatoDot(paso.suma_asegurada), 
+            deducible: convertCommatoDot(paso.deducible), 
             coaseguro: paso.coaseguro, 
         }
+
+       // console.log("datos para imprimir: ",data);
 
         return axios.post(globalURL + 'simulaciones/usuario/descargar_pdf', data,
         {
@@ -137,17 +131,17 @@ export default  {
             email: user.email,
             num_poliza: user.nropoliza,
             id_institucion: paso.id_institucion,
-            suma_asegurada: paso.suma_asegurada, 
+            suma_asegurada: convertCommatoDot(paso.suma_asegurada), 
             costo_total: costo_total,
-            deducible: paso.deducible, 
+            deducible: convertCommatoDot(paso.deducible), 
             coaseguro: paso.coaseguro, 
             vigencia: paso.vigencia,
             tipo_atencion: paso.centro,
-            id_receptor_hormonal: 1,	
-            id_status_her: 1,	
-            id_status_brca: 3,	
-            id_etapa_cdm: 1,	
-            id_aseguradora: 1,	
+            id_receptor_hormonal: paso.id_receptor_hormonal,	
+            id_status_her: paso.id_status_her,	
+            id_status_brca: paso.id_status_brca,	
+            id_etapa_cdm: paso.id_etapa_cdm,	
+            id_aseguradora: paso.id_aseguradora,	
             identificador: identificador,
         };
         return axios.post(globalURL + 'usuarios/preaprobacion', data)

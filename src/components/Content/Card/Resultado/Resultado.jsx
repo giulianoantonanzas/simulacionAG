@@ -17,6 +17,8 @@ const Resultado = () =>{
     const [items, setItems] = React.useState([]);
 
      const[nroSimulacion, setNroSimulacion] = React.useState(0);
+
+     const hospitalRef = React.useRef();
     
 
     const [contacto, setContacto] = React.useState(false);
@@ -25,16 +27,15 @@ const Resultado = () =>{
         Simulacion.getInstituciones().then(data => setListaI(data))
         Simulacion.postCotizacion(paso).then(data => {
             setCotizacion(data); 
-             console.log(cotizacion)
             setItems(data["items"]);
         })
         .catch(err => console.log(err));
 
+        if(nroSimulacion===0)
         setNroSimulacion(Math.floor(Math.random() *100) + 112233);
-       // console.log(nroSimulacion);
-    },[])
+   
+    },[paso])
 
-    //  console.log(items);
     function handleGenerar(e) {
         e.preventDefault();
 
@@ -73,7 +74,7 @@ const Resultado = () =>{
        
             id_receptor_hormonal: 1,	
             id_status_her: 1,	
-            id_status_brca: 3,	
+            id_status_brca: 1,	
             id_etapa_cdm: 1,	
             id_aseguradora: 1,	
             id_institucion: 1,
@@ -81,25 +82,18 @@ const Resultado = () =>{
     }
 
     function handleDescargarSimulacion(e) {
-        e.preventDefault();
+       e.preventDefault();
 
-        Simulacion.postDescargarSimulacion(nroSimulacion, paso)
-        .then(res => console.log(res));
+        Simulacion.postDescargarSimulacion(nroSimulacion, paso);
     }
 
     function handleChangeInstituto(e) {
         e.preventDefault();
-
-        //  console.log('Change instituciones: ',e.target.value);
-         setPaso({...paso, id_institucion: e.target.value})
-         setCotizacion([]);
-         setItems([]);
-        Simulacion.postCotizacion(paso).then(data => {
-            setCotizacion(data); 
-            // console.log(cotizacion)
-            setItems(data["items"]);
-        })
-        .catch(err => console.log(err));
+        console.log("hospital", hospitalRef.current.value)
+        
+        setPaso({...paso, id_institucion: hospitalRef.current.value});
+        setCotizacion([]);
+        setItems([]);
 
     }
 
@@ -181,11 +175,12 @@ const Resultado = () =>{
                     <form className="costo-form">
                         
                             <div className="form-control">
-                                <select name="instituciones" id="instituciones" onChange={handleChangeInstituto}>
-                                    <option value="Select" selected={true} disabled>Seleccionar</option>
+                                <select name="instituciones" id="instituciones" onChange={handleChangeInstituto}
+                                ref={hospitalRef}>
+                                    <option value="Select" disabled>Seleccionar</option>
                                 {
                                     listaI.map((item)=>{
-                                        return <option value={item.id}>{item.nombre}</option>
+                                        return <option selected value={item.id}>{item.nombre}</option>
                                     })
                                 }
                                 </select>
@@ -204,7 +199,7 @@ const Resultado = () =>{
                         <div className="resultado-costo_detalle">
                         <h2 className="resultado-costo_detalle--title">Detalles*:</h2>
                         {
-                            (items.length > 0) ?   
+                            (items.length !== 0) ?   
                                 items.map( data => {
                                          return <div className="flex-column">
                                             

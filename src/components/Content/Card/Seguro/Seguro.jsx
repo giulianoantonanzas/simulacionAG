@@ -47,32 +47,33 @@ const Seguro = () =>{
 
     function handleChangeS(e) {
         //Expresion regular para solo aceptar numero en input
-        const re = /^[0-9\b]+$/;
-
-        // solo toma valor ingresado si esta en blanco o pasa el test ER
-        if (e.target.value === '' || re.test(e.target.value)) {
-            setSeguro({...seguro,suma_asegurada: e.target.value}); 
+         const re = /[0-9]+(\.[0-9][0-9]?)?/;
+         
+         // solo toma valor ingresado si esta en blanco o pasa el test ER
+         if (e.target.value === '' || re.test(e.target.value)) {
+             setSeguro({...seguro,suma_asegurada: e.target.value});
+             console.log(seguro);        
         }
     }
 
     function handleChangeD(e) {
          //Expresion regular para solo aceptar numero en input
-         const re = /^[0-9\b]+$/;
-
-         // solo toma valor ingresado si esta en blanco o pasa el test ER
-         if (e.target.value === '' || re.test(e.target.value)) {
-             
-             setSeguro({...seguro,deducible: e.target.value});
+        const re = /[0-9]+(\.[0-9][0-9]?)?/;
+        // solo toma valor ingresado si esta en blanco o pasa el test ER
+        if (e.target.value === '' || re.test(e.target.value)) {
+             setSeguro({...seguro,deducible:e.target.value});
          }
     }
 
     function handleChangeC(e) {
           //Expresion regular para solo aceptar numero en input
           const re = /^[0-9\b]+$/;
+        
 
           // solo toma valor ingresado si esta en blanco o pasa el test ER
           if (e.target.value === '' || re.test(e.target.value)) {
               setSeguro({...seguro,coaseguro: e.target.value});
+
           }
     }
 
@@ -109,12 +110,20 @@ const Seguro = () =>{
     function submitForm(e) {
         e.preventDefault();
 
+        let str = seguro.suma_asegurada;
+        //reemplaza la coma "," con punto "."
+        var num_suma_asegurada = parseFloat(str.replace(/\s/g, "").replace(",", "."));
+        str = seguro.deducible;
+        //reemplaza la coma "," con punto "."
+        var num_deducible = parseFloat(str.replace(/\s/g, "").replace(",", "."));
+
         //id_aseguradora:
 
         // console.log('seguro Submit: ',seguro);
         let i = paso.id+1;
-        setPaso({...paso, id: i,  ...seguro})
-
+        // suma_asegurada: num_suma_asegurada, deducible: num_deducible
+        setPaso({...paso, id: i, ...seguro});
+       
     }
     return(
         <div className="seguro">

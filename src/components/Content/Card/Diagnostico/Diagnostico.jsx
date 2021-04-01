@@ -51,8 +51,7 @@ const Diagnostico = () =>{
                 Simulacion.getBRCA().then(data => setBRCA(data))
             }
             //--------------------------------------//
-            console.log('diagnostico', diagnostico);
-           console.log(buttonRef.current.disabled);
+           
 
     },[diagnostico])
 
