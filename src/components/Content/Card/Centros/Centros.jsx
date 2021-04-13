@@ -64,8 +64,7 @@ const Centros = () =>{
                         <button className={classO} onClick={handleClickO}>
                         <h3>Centro Oncológico </h3>
                             <p> 
-                            Atención exclusiva por profesionales 
-                            de salud con especialidad oncológica
+                            Atención médica por especialistas en oncología
                             </p>
                         </button>
 
@@ -77,8 +76,7 @@ const Centros = () =>{
                         <button className={classE} onClick={handleClickE}>
                         <h3>Enfoque Multidiscuplinario </h3>                 
                             <p>
-                            Atención por un equipo médico con distintas especialidades para 
-                            cubrir un tratamiento integral.Ejemplo: Psicológico, Nutrición y Oncológico
+                            Atención médica por diversos especialistas
                             </p>
                         </button>
                     </div>
