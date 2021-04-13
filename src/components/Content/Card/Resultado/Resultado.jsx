@@ -15,6 +15,8 @@ const Resultado = () =>{
 
     const [cotizacion, setCotizacion] = React.useState([]);
     const [items, setItems] = React.useState([]);
+    const [errors, setErrors] = React.useState('');
+
 
      const[nroSimulacion, setNroSimulacion] = React.useState(0);
 
@@ -25,11 +27,18 @@ const Resultado = () =>{
 
     React.useEffect(()=>{
         Simulacion.getInstituciones().then(data => setListaI(data))
+
         Simulacion.postCotizacion(paso).then(data => {
-            setCotizacion(data); 
+            setCotizacion(data);
+          //  console.log('Entro cotizacion', cotizacion);
+            if(data["items"].length !== 0)
             setItems(data["items"]);
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            setItems([]);
+            setCotizacion([]);
+            setErrors('No se encuentra este perfil.')
+        });
 
         if(nroSimulacion===0)
         setNroSimulacion(Math.floor(Math.random() *100) + 112233);
@@ -89,13 +98,86 @@ const Resultado = () =>{
 
     function handleChangeInstituto(e) {
         e.preventDefault();
-        console.log("hospital", hospitalRef.current.value)
-        
+               
         setPaso({...paso, id_institucion: hospitalRef.current.value});
         setCotizacion([]);
         setItems([]);
 
     }
+    
+    if(errors!=='' && cotizacion.length === 0) 
+    return (
+    <div className="resultado">
+        <h1 className="resultado-title">Simulación No. {nroSimulacion}</h1>
+
+            <div className="resultado-datos">
+                <h1 className="resultado-datos_title">Resumen de datos</h1>
+
+                <div className="flex">
+                    <div className="flex-item1">
+                        
+                        <div className="card1">
+                            <div >
+                                <h3>Resumen de póliza </h3>
+                                <button className="btn-edit" onClick={handleClickPoliza}>
+                                    <img src={iconEdit} alt="edit"/>
+                                </button>
+                            </div>
+                            <div> 
+                            <h4>Suma asegurada:</h4>
+                            ${paso.suma_asegurada}
+                            </div> 
+                            <div> 
+                            <h4>Deducible:</h4>
+                            ${paso.deducible}
+                            </div> 
+                            <div> 
+                            <h4>Coaseguro:</h4>
+                            {paso.coaseguro}%
+                            </div> 
+                        </div>
+
+                        <p className="flex-item1--p">
+                        Tengo dudas sobre mi póliza <br/> 
+                        <a href="#" className="link">Quiero contactar a mi seguro</a>
+                        </p>
+                    </div>
+
+                    <div className="flex-item2">
+                        <div className="card2">
+                                <div className="flex-row">
+                                <h3>Resumen del Diagnóstico </h3>
+                                    <button className="btn-edit" onClick={handleClickDiagnostico}>
+                                        <img src={iconEdit} alt="edit"/>
+                                    </button>
+                                </div>
+                                <div className="grid-container"> 
+                                <h4>Etapa del cáncer de mama:</h4>
+                                <p>{paso.mama}</p>
+                                </div> 
+                                <div className="grid-container"> 
+                                <h4>Receptor Hormonal:</h4>
+                                <p>{paso.hormonal}</p>
+                                </div> 
+                                <div className="grid-container"> 
+                                <h4>Estatus de HER2:</h4>
+                                <p>{paso.her}</p>
+                                </div> 
+                                <div className="grid-container">  
+                                <h4>Estatus de BRCA:</h4>
+                                <p>{paso.brca}</p>
+                                </div> 
+                        </div>
+                    
+                    </div> {/*--- FIN FLEX-CONTAINER--- */}
+
+                </div>
+
+            </div> {/*--- FIN DATOS--- */}
+            <div className="resultado-errors">
+                    {errors} 
+            </div>
+</div>)
 
     
 
@@ -176,14 +258,16 @@ const Resultado = () =>{
                         
                             <div className="form-control">
                                 <select name="instituciones" id="instituciones" onChange={handleChangeInstituto}
-                                ref={hospitalRef}>
-                                    <option value="Select" disabled>Seleccionar</option>
-                                {
+                                ref={hospitalRef}
+                                option={items}
+                                defaultValue={{ label: "Select Dept", value: 0 }}>
+                                 <option value="Select" disabled>Seleccionar</option>
+                                 {
                                     listaI.map((item)=>{
-                                        return <option selected value={item.id}>{item.nombre}</option>
+                                        return <option key={item.id} value={item.id}>{item.nombre}</option>
                                     })
-                                }
-                                </select>
+                                } 
+                                 </select> 
                             </div>
                         {
                             (cotizacion.length === 0) ?  <div className="cargando"> Cargando Monto ....</div>: 
