@@ -52,7 +52,6 @@ const Seguro = () =>{
          // solo toma valor ingresado si esta en blanco o pasa el test ER
          if (e.target.value === '' || re.test(e.target.value)) {
              setSeguro({...seguro,suma_asegurada: e.target.value});
-             console.log(seguro);        
         }
     }
 
@@ -110,18 +109,8 @@ const Seguro = () =>{
     function submitForm(e) {
         e.preventDefault();
 
-        let str = seguro.suma_asegurada;
-        //reemplaza la coma "," con punto "."
-        var num_suma_asegurada = parseFloat(str.replace(/\s/g, "").replace(",", "."));
-        str = seguro.deducible;
-        //reemplaza la coma "," con punto "."
-        var num_deducible = parseFloat(str.replace(/\s/g, "").replace(",", "."));
-
-        //id_aseguradora:
-
-        // console.log('seguro Submit: ',seguro);
         let i = paso.id+1;
-        // suma_asegurada: num_suma_asegurada, deducible: num_deducible
+
         setPaso({...paso, id: i, ...seguro});
        
     }
