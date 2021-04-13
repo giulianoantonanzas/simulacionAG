@@ -8,7 +8,7 @@ const Seguro = () =>{
 
     const {paso, setPaso} = React.useContext(PasoContext);
     const [listaS, setListaS] = React.useState([]);
-    const [seguro, setSeguro] = React.useState({id_aseguradora:-1,aseguradora: paso.aseguradora
+    const [seguro, setSeguro] = React.useState({id_aseguradora: paso.id_aseguradora, aseguradora: paso.aseguradora
         , suma_asegurada: paso.suma_asegurada, 
         deducible: paso.deducible, 
         coaseguro: paso.coaseguro,
