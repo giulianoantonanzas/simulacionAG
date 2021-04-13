@@ -261,6 +261,15 @@
         max-width: 98.2rem;
     }
 
-    
+    &-errors {
+        margin-top: 1.5rem;
+        min-width: 30rem;
+        min-height: 15rem;
+        border-radius: 1.6rem;
+        background-color: #BDBDBD;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
 }
