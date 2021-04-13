@@ -74,7 +74,7 @@ const Centros = () =>{
 
                     <div className="form-control">
                         <button className={classE} onClick={handleClickE}>
-                        <h3>Enfoque Multidiscuplinario </h3>                 
+                        <h3>Enfoque Multidisciplinario </h3>                 
                             <p>
                             Atención médica por diversos especialistas
                             </p>

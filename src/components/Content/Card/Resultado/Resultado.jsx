@@ -6,6 +6,7 @@ import Simulacion from '../../../../api/simulacionAPI';
 import FormularioContacto from './Formulario/FormularioContacto';
 import { PasoContext } from '../../../../context/PasoContext';
 
+/* Corregir error de response backend 500*/
 
 const Resultado = () =>{
 
@@ -104,6 +105,14 @@ const Resultado = () =>{
         setItems([]);
 
     }
+
+    function formatNumberMX(nro) {
+        
+        return new Intl.NumberFormat("ES-MX", {
+            style: 'currency',
+            currency: 'MXN'
+        }).format(nro);
+    }
     
     if(errors!=='' && cotizacion.length === 0) 
     return (
@@ -125,11 +134,11 @@ const Resultado = () =>{
                             </div>
                             <div> 
                             <h4>Suma asegurada:</h4>
-                            ${paso.suma_asegurada}
+                            {formatNumberMX(paso.suma_asegurada)}
                             </div> 
                             <div> 
                             <h4>Deducible:</h4>
-                            ${paso.deducible}
+                            {formatNumberMX(paso.deducible)}
                             </div> 
                             <div> 
                             <h4>Coaseguro:</h4>
@@ -200,11 +209,11 @@ const Resultado = () =>{
                                 </div>
                                 <div> 
                                 <h4>Suma asegurada:</h4>
-                                ${paso.suma_asegurada}
+                                {formatNumberMX(cotizacion.suma_asegurada)}
                                 </div> 
                                 <div> 
                                 <h4>Deducible:</h4>
-                                ${paso.deducible}
+                                {formatNumberMX(cotizacion.deducible)}
                                 </div> 
                                 <div> 
                                 <h4>Coaseguro:</h4>
@@ -271,7 +280,7 @@ const Resultado = () =>{
                             </div>
                         {
                             (cotizacion.length === 0) ?  <div className="cargando"> Cargando Monto ....</div>: 
-                            <p className="form-text">$ {cotizacion.costo_total}</p>
+                            <p className="form-text"> {formatNumberMX(cotizacion.costo_total)}</p>
                         }
                     </form>
                      {
@@ -289,7 +298,7 @@ const Resultado = () =>{
                                             
                                             <h4 className="flex-container">
                                             <div> {data.nombre}:</div>
-                                            <div>${data.precio_preferencial}</div>
+                                            <div>{formatNumberMX(data.precio_preferencial)}</div>
                                             </h4>
                                             <p> {data.detalle} </p>
                                         </div> 
@@ -302,7 +311,7 @@ const Resultado = () =>{
 
                                 <h4 className="flex-container">
                                    <div> Total por 1 año</div>
-                                    <div>${cotizacion.costo_total}</div>
+                                    <div>{formatNumberMX(cotizacion.costo_total)}</div>
                                 </h4>
 
 
