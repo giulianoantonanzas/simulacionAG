@@ -4,9 +4,9 @@ import { PasoContext } from '../../../../context/PasoContext';
 import Simulacion from '../../../../api/simulacionAPI';
 
 const Diagnostico = () =>{
+    const [errorMsg,setErrorMsg] = React.useState('')
 
     const {paso, setPaso} = React.useContext(PasoContext);
-
     const [listaMama, setMama] = React.useState([]);
     const [listaHormonal, setHormonal] = React.useState([]);
     const [listaHer, setHer] = React.useState([]);
@@ -28,13 +28,13 @@ const Diagnostico = () =>{
     
 
     React.useEffect(()=>{
+        cleanError()
         buttonRef.current.disabled = true;
 
-            if(diagnostico.mama!= '' && diagnostico.hormonal!= '' 
-            && diagnostico.her!= '' && diagnostico.brca!=''){
+            if(diagnostico.mama!== '' && diagnostico.hormonal!== '' 
+            && diagnostico.her!== '' && diagnostico.brca!=='' && errorMsg===''){
                 buttonRef.current.disabled = false;
                 setShowMsg(false);
-
             }
 
             //-- Carga de datos del API Rest Simulacion
@@ -53,35 +53,55 @@ const Diagnostico = () =>{
             //--------------------------------------//
            
 
-    },[diagnostico])
+    })
+
+
+    function cleanError(){
+        if((diagnostico.brca!=="Aún no lo sé" || diagnostico.brca!=="Aun no lo sé") &&  diagnostico.her!=="Aún no lo sé" && diagnostico.hormonal!=="Aún no lo sé" && diagnostico.mama!=="Aún no lo sé" ){
+            setErrorMsg('')
+        }
+    }
+
+    function viewError(){
+        if(diagnostico.brca!=="Aún no lo sé" || diagnostico.brca!=="Aun no lo sé"){
+            setErrorMsg("Para generar una simulación es necesario contar con todos los datos solicitados, pregunta a tu médico por tu Estatus de BRCA")
+            return true
+        }else if(diagnostico.her!=="Aún no lo sé"){
+            setErrorMsg("Para poder avanzar, contacta a tu médico para que te informe sobre tu estatus de HER2")
+            return true
+        }else  if(diagnostico.hormonal!=="Aún no lo sé"  ){
+            setErrorMsg("Para poder realizar los cálculos, es vital  que conozcas cuál es el receptor hormonal")
+            return true
+        }else if(diagnostico.mama!=="Aún no lo sé"){
+            setErrorMsg("Para continuar con la simulación es importante conocer en qué etapa del padecimiento te encuentras ya que dependiendo de ésta varía la simulación, acude a tu médico por el diagnóstico.")
+            return true
+        }
+        return false
+    }
 
     function handleChange(e) {
         e.preventDefault();
-
-        // console.log(e.target.name);
-
-        switch(e.target.name){
-            case 'mama': {
-                setDiagnostico({...diagnostico, mama: e.target.value});
-                return; 
+        
+            switch(e.target.name){
+                case 'mama': {
+                    setDiagnostico({...diagnostico, mama: e.target.value});
+                    break
+                }
+                case 'hormonal': {
+                    setDiagnostico({...diagnostico,  hormonal: e.target.value});
+                    break
+                }
+                case 'her': {
+                    setDiagnostico({...diagnostico, her: e.target.value});
+                    break
+                }
+                case 'brca': {
+                    setDiagnostico({...diagnostico, brca: e.target.value});
+                    break
+                }
             }
-
-            case 'hormonal': {
-                setDiagnostico({...diagnostico,  hormonal: e.target.value});
-                return;
-            }
-
-            case 'her': {
-                setDiagnostico({...diagnostico, her: e.target.value});
-                return;
-            }
-
-            case 'brca': {
-                setDiagnostico({...diagnostico, brca: e.target.value});
-                return;
-            }
-
-        }
+            
+        viewError()
     }
 
     function handleSiguiente(e){
@@ -110,6 +130,7 @@ const Diagnostico = () =>{
         }
     }
 
+
     return(
         <div className="diagnostico">
                 <h1 className="diagnostico-title">Datos de tu diagnóstico:</h1>
@@ -117,7 +138,6 @@ const Diagnostico = () =>{
                 <form className="diagnostico-form">
                     <div className="form-control">
                         <label htmlFor="mama">Etapa del cáncer de mama:</label>
-                        {/* condicion si hay datos guardados en PasoContext */}
                         {
                         (diagnostico.mama!=='')?
                         // Si hay datos en PasoContext muestra el valor al usuario
@@ -142,7 +162,6 @@ const Diagnostico = () =>{
                             
                         </select>
                         }
-                        
                     </div>
 
                     <div className="form-control">
@@ -175,7 +194,6 @@ const Diagnostico = () =>{
 
                     <div className="form-control">
                         <label htmlFor="her">Estatus de HER2:</label>
-                       
                         {
                         (diagnostico.her!=='')?
                         // Si hay datos en PasoContext muestra el valor al usuario
@@ -230,15 +248,9 @@ const Diagnostico = () =>{
                 </form>
                 <button className="btn btn-siguiente" onClick={handleSiguiente} ref={buttonRef}>Siguiente</button>
 
-                    
-                    <p hidden={showMsg}>Para generar una simulación más exacta, 
-                    es necesario contar con todos los datos solicitados. 
-                    Pregunta a tu médico por tu <strong>Estatus de BRCA</strong>
-                    </p>
+                <p>{errorMsg}</p>
                 
-                
-
-</div>
+        </div>
     )
 
 }

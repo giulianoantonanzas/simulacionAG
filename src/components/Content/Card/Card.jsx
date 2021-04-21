@@ -15,8 +15,8 @@ const Card = () => {
      const {paso} = useContext(PasoContext);
     
     function renderSwitch(){
+        console.log(paso)
         switch(paso.id) {
-
             case 1:   return <Inicio />;
             case 2:   return <Perfil />;
             case 3:   return <Seguro />;
@@ -24,7 +24,6 @@ const Card = () => {
             case 5:   return <Centros />;
             case 6:   return <Resultado />;
         }
-
     }
 
 return ( 

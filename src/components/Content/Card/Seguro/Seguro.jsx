@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { PasoContext } from '../../../../context/PasoContext';
-
+import Dayjs from 'dayjs'
 import Simulacion from '../../../../api/simulacionAPI';
 
 
 const Seguro = () =>{
 
+    const [fechaValida,setFechaValida]=React.useState('') 
     const {paso, setPaso} = React.useContext(PasoContext);
     const [listaS, setListaS] = React.useState([]);
     const [seguro, setSeguro] = React.useState({id_aseguradora: paso.id_aseguradora, aseguradora: paso.aseguradora
@@ -27,9 +28,8 @@ const Seguro = () =>{
     React.useEffect(()=>{
         buttonRef.current.disabled = true;
             if(seguro.aseguradora !=='' && seguro.suma_asegurada!=='' && seguro.deducible !=='' 
-            && seguro.coaseguro !=='' && seguro.vigencia!==''){
+            && seguro.coaseguro !=='' && seguro.vigencia!=='' && fechaValida===''){
                 buttonRef.current.disabled = false;
-                
             }
 
         if(!listaS.length){
@@ -37,22 +37,25 @@ const Seguro = () =>{
         }
         // console.log('Seguro: ', seguro)
 
-    },[seguro])
+    })
    
     function handleChangeA(e) {
         const aseguradoraID = listaS.filter(data => data.nombre === aseguradoraRef.current.value)
+        
         // console.log(aseguradoraID);
         setSeguro({...seguro,id_aseguradora: aseguradoraID[0].id,aseguradora: aseguradoraRef.current.value});
     }
 
     function handleChangeS(e) {
-        //Expresion regular para solo aceptar numero en input
+
+        
+
          const re = /[0-9]+(\.[0-9][0-9]?)?/;
-         
-         // solo toma valor ingresado si esta en blanco o pasa el test ER
-         if (e.target.value === '' || re.test(e.target.value)) {
-             setSeguro({...seguro,suma_asegurada: e.target.value});
-        }
+        
+         if (e.target.value === '' || re.test(e.target.value)){
+                                                //formatear el numero para que sea como el del peso mexicano
+            setSeguro({...seguro,suma_asegurada:e.target.value.replace(/\D/g, "").replace(/([0-9])([0-9]{3})$/, '$1,$2').replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",")})
+         }
     }
 
     function handleChangeD(e) {
@@ -60,7 +63,7 @@ const Seguro = () =>{
         const re = /[0-9]+(\.[0-9][0-9]?)?/;
         // solo toma valor ingresado si esta en blanco o pasa el test ER
         if (e.target.value === '' || re.test(e.target.value)) {
-             setSeguro({...seguro,deducible:e.target.value});
+             setSeguro({...seguro,deducible:e.target.value.replace(/\D/g, "").replace(/([0-9])([0-9]{3})$/, '$1.$2').replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",")});
          }
     }
 
@@ -77,13 +80,19 @@ const Seguro = () =>{
     }
 
     function handleChangeV(e) {
-  
+        //si la fecha es menor a la de hoy entonces pasar, sino la aseguradora no lo deberia cubrir.
+                        //fecha ingresada        dia de hoy
+        if(Dayjs(vigenciaRef.current.value).diff(new Date())<0){
+            setFechaValida("Recuerda renovar tu póliza, la vigencia ha vencido")
+        } else{
+            setFechaValida('')
+        }
         setSeguro({...seguro,vigencia: vigenciaRef.current.value});
     }
 
     function handleClick(e) {
-        e.preventDefault();
-  
+
+        
         switch(e.target.name){
             case 'suma':{
                 e.target.value = '';
@@ -101,19 +110,17 @@ const Seguro = () =>{
                 break;
             } 
         }
-        // console.log('Seguro: ', seguro);
-
     }
 
 
     function submitForm(e) {
         e.preventDefault();
-
         let i = paso.id+1;
 
         setPaso({...paso, id: i, ...seguro});
-       
     }
+
+
     return(
         <div className="seguro">
                 <h1>Datos de tu seguro:</h1>
@@ -178,6 +185,8 @@ const Seguro = () =>{
                            <input type="date" name="vigencia" onChange={handleChangeV}
                             value={seguro.vigencia} ref={vigenciaRef}/>
                     </div>
+
+                    <p className="fecha-invalida">{fechaValida}</p>
 
                     <div className="seguro-form-control6">
                         <input  className="btn btn-siguiente" ref={buttonRef}   value="Siguiente" type="submit"/>
