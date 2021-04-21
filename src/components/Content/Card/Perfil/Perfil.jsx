@@ -74,7 +74,9 @@ const Perfil = () =>{
         e.preventDefault();
 
         let i = paso.id + 1;
-        setPaso({...paso, id: i, gender: perfil.gender, edad: perfil.edad})
+        
+        //contador de aprobados. y se mueve el id
+        setPaso({...paso, id: i , gender: perfil.gender, edad: perfil.edad, aprobed_forms:paso.aprobed_forms+1});
 
     }
 

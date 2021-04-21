@@ -10,7 +10,7 @@ const Centros = () =>{
 
     React.useEffect(()=>{
         buttonRef.current.disabled = true;
-            if(centro!=''){
+            if(centro!='' &  paso?.aprobed_forms> 3){
                 buttonRef.current.disabled = false;
                 if(centro == 'Centro Oncológico'){
                     setCentro('Centro Oncológico');
@@ -49,8 +49,8 @@ const Centros = () =>{
         e.preventDefault();
 
         let i = paso.id + 1;
-
-        setPaso({...paso, id: i, centro: centro})
+        setPaso({...paso, id: i, centro: centro, aprobed_forms:paso.aprobed_forms+1})
+        
     }
 
     return(

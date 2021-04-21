@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { PasoContext } from '../../context/PasoContext'
 
-import Card from './Card/Card';
+import CarrouselCard from './Card/CarraouseCards';
 import Text from './Text/Text';
 
 
@@ -24,7 +24,7 @@ const Content = () => {
                  showText()
              }   
             
-            <Card />
+            <CarrouselCard />
 
             <div className="content-text">
                 {

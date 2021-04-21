@@ -126,7 +126,9 @@ const Diagnostico = () =>{
                 id_receptor_hormonal: hormonalID[0].id,
                 id_status_her: herID[0].id ,
                 id_status_brca: brcaID[0].id,
-                ...diagnostico})
+                ...diagnostico,
+                aprobed_forms:paso.aprobed_forms+1
+            })
         }
     }
 

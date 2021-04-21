@@ -117,7 +117,7 @@ const Seguro = () =>{
         e.preventDefault();
         let i = paso.id+1;
 
-        setPaso({...paso, id: i, ...seguro});
+        setPaso({...paso, id: i, ...seguro , aprobed_forms:paso.aprobed_forms+1});
     }
 
 

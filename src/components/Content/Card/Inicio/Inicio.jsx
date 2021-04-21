@@ -15,7 +15,8 @@ const Inicio = () =>{
     function handleSiguiente(e){
         e.preventDefault();
 
-        setPaso({...paso, id: 2});
+        //contador de aprobados. y se mueve el id
+        setPaso({...paso, id: 2 , aprobed_forms:paso.aprobed_forms+1});
     }
     return(
         <div className="inicio">
@@ -58,7 +59,6 @@ const Inicio = () =>{
                 />
 
                 <a href="#" className="link">Ya tengo mi simulación</a>
-  
             </div>
     )
 

@@ -7,6 +7,7 @@ const pasoHard = {
     // --Perfil-- //
     gender: '',
     edad: '',
+    aprobed_forms: 0 ,
     //--------------//
     //-- Seguro --//
     aseguradora: '',
@@ -35,6 +36,7 @@ const pasoHard = {
     //deducible: 0,
     //coaseguro: 0,  
     //------------------------//
+    
 }
 
 export const PasoProvider = ({children}) => {
