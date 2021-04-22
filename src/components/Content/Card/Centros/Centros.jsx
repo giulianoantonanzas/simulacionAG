@@ -10,7 +10,7 @@ const Centros = () =>{
 
     React.useEffect(()=>{
         buttonRef.current.disabled = true;
-            if(centro!='' &  paso?.aprobed_forms> 3){
+            if(centro!='' &  paso?.aprobed_forms> 2){
                 buttonRef.current.disabled = false;
                 if(centro == 'Centro Oncológico'){
                     setCentro('Centro Oncológico');

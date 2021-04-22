@@ -7,7 +7,6 @@ const pasoHard = {
     // --Perfil-- //
     gender: '',
     edad: '',
-    aprobed_forms: 0 ,
     //--------------//
     //-- Seguro --//
     aseguradora: '',
@@ -35,7 +34,12 @@ const pasoHard = {
     //suma_asegurada: 0,
     //deducible: 0,
     //coaseguro: 0,  
+
+    /* FORM OPTIONS*/
+    aprobed_forms: 0 ,
+    simulation_number:''
     //------------------------//
+
     
 }
 

@@ -27,6 +27,11 @@ function convertCommatoDot(str) {
 
 export default  {
 
+    getSimulacionById: (id)=>{
+        return axios.get(globalURL + 'simulacion',id)
+        .then(data => data.data);
+    },
+
     getAseguradoras: () => {
         return axios.get(globalURL + 'aseguradora')
         .then(data => data.data);

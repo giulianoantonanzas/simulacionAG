@@ -15,6 +15,33 @@
         text-align: center;
     }
 
+    .simulation-number-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .simulation-number{
+        margin-left: 20px;
+        background: #FFFFFF;
+        border-radius: 6px;
+        min-width: 120px;;
+        height: 29px;
+    }
+
+    @media only screen and (max-width: 500px){
+        .simulation-number-container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .simulation-number{
+                margin-left: unset;
+            }
+        }
+    }
+    
+
+
     &-text {
         margin: 30px 0;
         font-size: 2.4rem;
@@ -30,6 +57,7 @@
             
 
             @media only screen and (max-width: 990px) {
+                
                 // grid-column-gap: 1.5rem;
                 // font-size: 1.4rem;
                 display: flex;

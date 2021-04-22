@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState} from 'react'
 import { PasoContext } from '../../../../context/PasoContext';
 
 
@@ -8,14 +8,14 @@ const Inicio = () =>{
     const [check, setCheck] = React.useState(false);
 
     function handleCheckBox(e){
-        // console.log('checkbox ',e.target.checked);
         setCheck(e.target.checked)
     }
 
     function handleSiguiente(e){
         e.preventDefault();
-
-        //contador de aprobados. y se mueve el id
+        if(paso.simulation_number!=''){
+            console.log("ya tengo la simulacion")
+        }
         setPaso({...paso, id: 2 , aprobed_forms:paso.aprobed_forms+1});
     }
     return(
@@ -58,7 +58,14 @@ const Inicio = () =>{
                 disabled={!check}
                 />
 
-                <a href="#" className="link">Ya tengo mi simulación</a>
+                <div className="d-flex simulation-number-container">
+                    <label htmlFor="sumulation-number"><p className="link">Ya tengo mi simulación</p></label>
+                    <input name="sumulation-number"
+                    onChange={(e)=>{setPaso({...paso,simulation_number: e.target.value})}}
+                    onClick={()=>{setPaso({...paso,simulation_number:''})}}
+                    value={paso.simulation_number} type="text" className="simulation-number"/>
+                </div>
+               
             </div>
     )
 

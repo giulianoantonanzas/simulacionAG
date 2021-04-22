@@ -1,9 +1,49 @@
 .resultado{
-    padding: 3.7rem 5.5rem;
+    padding: 3.7rem 0;
      width: 100%;
      @media only screen and (max-width: 480px) {
         align-items: stretch;
         padding: 1.5rem;
+    }
+
+    .tipo-atencion{
+        display: flex;
+        justify-content: center;
+        margin:40px 0 ;
+        h3{
+            text-align: center;
+        }
+        .oncologo-o-multidisi{
+            margin:14px 0;
+            display: flex;
+            ol {
+                list-style: none;
+              }
+              
+            label {
+                cursor: pointer;
+            }
+            .interrputor{
+                margin-left: 10px;
+                margin-right: 10px;
+                height: fit-content;
+                width: 50px;
+                background-color: #BDBDBD;
+                border-radius: 20px;
+                .radio{
+                    transition: 0.2s;
+                    background-color: #ffffff;
+                    display: flex;
+                    border-radius: 50%;
+                    height: 30px;
+                    width: 30px;
+                    &.right{
+                        transition: 0.2s;
+                        transform: translateX(20px);
+                    }
+                }
+            }
+        }
     }
 
     &-datos{

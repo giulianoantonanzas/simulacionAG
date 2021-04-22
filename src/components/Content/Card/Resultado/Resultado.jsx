@@ -8,25 +8,24 @@ import { PasoContext } from '../../../../context/PasoContext';
 
 /* Corregir error de response backend 500*/
 
-const Resultado = () =>{
+const Resultado = (id) =>{
 
+    const [radio, setRadio] = React.useState(true);
     const {paso, setPaso} = React.useContext(PasoContext);
-
     const [listaI, setListaI] = React.useState([]);
-
     const [cotizacion, setCotizacion] = React.useState([]);
     const [items, setItems] = React.useState([]);
     const [errors, setErrors] = React.useState('');
-
-
-     const[nroSimulacion, setNroSimulacion] = React.useState(0);
-
-     const hospitalRef = React.useRef();
+    const[nroSimulacion, setNroSimulacion] = React.useState(0);
+    const hospitalRef = React.useRef();
     
 
     const [contacto, setContacto] = React.useState(false);
 
     React.useEffect(()=>{
+        if(id){
+            Simulacion.getSimulacionById(id.then(data => setPaso(data)))
+        }
         Simulacion.getInstituciones().then(data => setListaI(data))
 
         Simulacion.postCotizacion(paso).then(data => {
@@ -255,6 +254,21 @@ const Resultado = () =>{
                            
                         </div> {/*--- FIN FLEX-CONTAINER--- */}
 
+                    </div>
+
+                    <div className="tipo-atencion">
+                        <div>
+                            <h3>tipo de atencion que requieres</h3>
+                            <div className="oncologo-o-multidisi">
+                                <p>Centro Oncológico</p>
+                                <div className="interrputor" >
+                                {/*si radio esta en true, estara a la izquierda , sino pasara a la derecha*/}
+                                <span onClick={()=>radio? setRadio(false) : setRadio(true)} className={`radio ${radio? "left" : "right"}`}/>
+                                </div>
+                                
+                                <p>Enfoque multidisciplinario</p>
+                            </div>
+                        </div>
                     </div>
 
                 </div> {/*--- FIN DATOS--- */}

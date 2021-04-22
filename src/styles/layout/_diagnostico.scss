@@ -1,6 +1,6 @@
 .diagnostico {
     margin-top: 9.4rem ;
-
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -10,8 +10,8 @@
 
 
     &-form {
-        display: flex;
-
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
         flex-wrap: wrap;
         text-align: center;
 
@@ -22,6 +22,14 @@
             display: flex;
             flex-flow: column wrap; 
             text-align: center;
+            label{
+                margin: unset!important;
+                margin-top: auto!important;
+            }
+            select{
+                margin: unset!important;
+                margin-top: 20px!important;
+            }
             &:not(:last-child) {
                 border-right: none;
             }
@@ -42,6 +50,9 @@
             border-right: 1px solid black;
         }
 
+        label{
+            margin: auto;
+        }
         input, select {
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
@@ -50,8 +61,7 @@
      
 
         select {
-            margin-top: 1rem;
-            min-width: 15rem;
+            margin-top: auto;
         }
 
        @media only screen and (max-width: 1190px) {

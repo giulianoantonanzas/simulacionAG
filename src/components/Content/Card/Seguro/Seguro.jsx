@@ -180,7 +180,7 @@ const Seguro = () =>{
 
                     </div> {/* fin flex-row */}
                     
-                    <div className="seguro-form-control5">
+                    <div className="seguro-form-control5 mb-5">
                            <label htmlFor="vigencia">Vigencia</label>
                            <input type="date" name="vigencia" onChange={handleChangeV}
                             value={seguro.vigencia} ref={vigenciaRef}/>

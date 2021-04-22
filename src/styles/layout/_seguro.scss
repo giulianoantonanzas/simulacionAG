@@ -55,7 +55,7 @@
             }
 
             &5 {
-                
+                margin-top: 40px;
                 label {
                     margin-right: 2rem;
                 }
@@ -78,12 +78,12 @@
 
         p.fecha-invalida{
             margin-top: 20px;
-            color: red;
         }
 
         @media only screen and (max-width: 768px) {
-            display: flex;
-            flex-flow: column wrap; 
+            label{
+                margin-bottom: 20px;
+            }
             margin: 0;
             
         }
