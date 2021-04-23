@@ -1,32 +1,25 @@
 .diagnostico {
-    margin-top: 9.4rem ;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
     text-align: center;
-
-
     &-form {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         flex-wrap: wrap;
         text-align: center;
-
-
         margin-bottom: 6.6rem;
-
         @media only screen and (max-width: 1190px) {
             display: flex;
-            flex-flow: column wrap; 
+            flex-flow: column wrap;
             text-align: center;
-            label{
+            label {
                 margin: unset!important;
                 margin-top: auto!important;
             }
-            select{
+            select {
                 margin: unset!important;
                 margin-top: 20px!important;
             }
@@ -35,61 +28,52 @@
             }
         }
     }
-
-    .form-control{
+    .form-control {
         padding: 0 1.5rem;
         height: 17.6rem;
         text-align: center;
-
         display: flex;
-        flex-flow: column wrap; 
+        flex-flow: column wrap;
         justify-items: center;
         align-items: center;
-
         &:not(:last-child) {
             border-right: 1px solid black;
         }
-
-        label{
+        label {
             margin: auto;
         }
-        input, select {
+        input,
+        select {
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
-            box-sizing: border-box;  
+            box-sizing: border-box;
         }
-     
-
         select {
             margin-top: auto;
         }
-
-       @media only screen and (max-width: 1190px) {
+        @media only screen and (max-width: 1190px) {
             display: flex;
-            flex-flow: column wrap; 
+            flex-flow: column wrap;
             text-align: center;
             &:not(:last-child) {
                 border-right: none;
             }
         }
     }
-
     h1 {
-        margin-bottom: 7.7rem;
+        margin-top: 2rem;
+        margin-bottom: 4rem;
     }
-
     p {
         margin: 2rem 0;
         padding: 0 6.5rem;
         font-size: 1.4rem;
-
-        strong{
-            font-family: Montserrat;    
+        strong {
+            font-family: Montserrat;
             font-style: normal;
             font-weight: 500;
             line-height: 1.5rem;
             color: #18A0FB;
         }
     }
-
 }

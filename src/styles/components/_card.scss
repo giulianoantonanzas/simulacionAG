@@ -21,14 +21,16 @@
     }
 
     .arrow-left{
-        margin-left: 20px;
+        margin-right: 5px;
+        margin-left: 15px;
         &.light{
             transform: rotate(180deg);
         }
       
     }
     .arrow-right{
-        margin-right: 20px;
+        margin-left: 5px;
+        margin-right: 15px;
         &.blod{
             transform: rotate(180deg);
         }

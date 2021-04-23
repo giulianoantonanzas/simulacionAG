@@ -1,63 +1,50 @@
 .inicio {
     width: 100%;
-    padding: 50px;
-
-    
+    padding: 50px 0;
     display: flex;
-
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     &-title {
         margin-bottom: 3.5rem;
         font-size: 2.4rem;
         text-align: center;
     }
-
-    .simulation-number-container{
+    .simulation-number-container {
+        margin-top: 40px;
         display: flex;
         justify-content: center;
         align-items: center;
     }
-
-    .simulation-number{
+    .simulation-number {
         margin-left: 20px;
         background: #FFFFFF;
         border-radius: 6px;
-        min-width: 120px;;
+        min-width: 120px;
+        ;
         height: 29px;
     }
-
-    @media only screen and (max-width: 500px){
-        .simulation-number-container{
+    @media only screen and (max-width: 500px) {
+        .simulation-number-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            .simulation-number{
+            .simulation-number {
                 margin-left: unset;
             }
         }
     }
-    
-
-
     &-text {
         margin: 30px 0;
         font-size: 2.4rem;
-
-        &_grid{
+        &_grid {
             display: grid;
             grid-template-columns: repeat(2, 35rem);
             grid-column-gap: 24.5rem;
             align-items: center;
             justify-items: center;
             text-align: center;
-
-            
-
             @media only screen and (max-width: 990px) {
-                
                 // grid-column-gap: 1.5rem;
                 // font-size: 1.4rem;
                 display: flex;
@@ -68,10 +55,9 @@
                     margin-top: 5rem;
                 }
             }
-
             .item {
                 p {
-                    max-width:31rem;
+                    max-width: 31rem;
                 }
                 h1 {
                     margin-bottom: 2rem;
@@ -79,45 +65,32 @@
             }
         }
     }
-
-
     &-form {
         margin: 30px 0;
-
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-
         .form-control {
             margin-bottom: 1rem;
             display: flex;
             justify-content: center;
             align-items: center;
-
-            
-
             label {
                 margin-left: 1.5rem;
                 font-size: 1.4rem;
                 line-height: 2rem;
                 /* or 143% */
-    
                 text-align: center;
                 letter-spacing: -0.015em;
                 width: 25rem;
-
             }
-            
         }
     }
-
-   
 }
 
-input[type=checkbox]{
-
-	font-size: inherit;
-	margin: 1.2rem;
+input[type=checkbox] {
+    font-size: inherit;
+    margin: 1.2rem;
     transform: scale(2.3);
 }

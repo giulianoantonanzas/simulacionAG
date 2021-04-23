@@ -5,8 +5,8 @@ export const PasoContext = createContext();
 const pasoHard = {
     id: 1,
     // --Perfil-- //
-    gender: '',
-    edad: '',
+    gender: 'null',
+    edad: 0,
     //--------------//
     //-- Seguro --//
     aseguradora: '',

@@ -23,7 +23,8 @@ const Carrousel = () =>{
     }
 
     const anteriorPagina = () =>{
-        if(pagina>1){
+        //cambiar a 2
+        if(pagina>2){
             setPagina(pagina-1)
             paso.id--;
         }
@@ -33,9 +34,10 @@ const Carrousel = () =>{
         setPagina(paso.id)
     })
 
+    
     return(
         <div className="card">
-            <img className={`arrow-left ${pagina===1? "light": "blod"}`} onClick={()=>anteriorPagina()} src={pagina!==1? ArrowUp :Arrow } alt="izquierda"/>
+            <img className={`arrow-left ${pagina<=2? "light": "blod"}`} onClick={()=>anteriorPagina()} src={pagina>2? ArrowUp :Arrow } alt="izquierda"/>
 
             {
                 paso.id==1? <Inicio /> :

@@ -6,26 +6,35 @@ import Simulacion from '../../../../api/simulacionAPI';
 import FormularioContacto from './Formulario/FormularioContacto';
 import { PasoContext } from '../../../../context/PasoContext';
 
-/* Corregir error de response backend 500*/
 
-const Resultado = (id) =>{
+const Resultado = () =>{
 
+    //const [isNewSimulacro,setIsNewSimulacro] = React.useState(false)
+    const polizaEditable = React.createRef()
+    const diagnosticoEditable = React.createRef()
+    const [isEditablePoliza, setisEditablePoliza] = React.useState(false)
+    const [isEditableDiagnostico, setisEditableDiagnostico] = React.useState(false)
     const [radio, setRadio] = React.useState(true);
-    const {paso, setPaso} = React.useContext(PasoContext);
+    const {paso, setPaso } = React.useContext(PasoContext);
     const [listaI, setListaI] = React.useState([]);
     const [cotizacion, setCotizacion] = React.useState([]);
     const [items, setItems] = React.useState([]);
     const [errors, setErrors] = React.useState('');
-    const[nroSimulacion, setNroSimulacion] = React.useState(0);
     const hospitalRef = React.useRef();
     
 
     const [contacto, setContacto] = React.useState(false);
 
-    React.useEffect(()=>{
-        if(id){
-            Simulacion.getSimulacionById(id.then(data => setPaso(data)))
-        }
+
+    if (paso.simulation_number === '') {
+        setPaso({ ...paso, simulation_number: Math.floor(Math.random() * 100) + 112233 })
+        //setIsNewSimulacro(true)
+        //setPaso obtener el simulacro
+    }
+
+    React.useEffect(() => {
+        Simulacion.postSimulacion(paso, cotizacion.costo_total).then(info=>console.log(info)).catch(e=>console.log(e))
+
         Simulacion.getInstituciones().then(data => setListaI(data))
 
         Simulacion.postCotizacion(paso).then(data => {
@@ -39,26 +48,15 @@ const Resultado = (id) =>{
             setCotizacion([]);
             setErrors('No se encuentra este perfil.')
         });
+    }, [paso, isEditablePoliza, isEditableDiagnostico])
+    
 
-        if(nroSimulacion===0)
-        setNroSimulacion(Math.floor(Math.random() *100) + 112233);
    
-    },[paso])
 
     function handleGenerar(e) {
         e.preventDefault();
 
         setContacto(true);
-    }
-
-    function handleClickPoliza(e) {
-        e.preventDefault();
-        setPaso({...paso, id: 3})
-    }
-
-    function handleClickDiagnostico(e) {
-        e.preventDefault();
-        setPaso({...paso, id: 4})
     }
 
     function handleFInalizar(e) {
@@ -87,13 +85,15 @@ const Resultado = (id) =>{
             id_etapa_cdm: 1,	
             id_aseguradora: 1,	
             id_institucion: 1,
+            aprobed_forms: 0 ,
+            simulation_number:''
         });
     }
 
     function handleDescargarSimulacion(e) {
        e.preventDefault();
 
-        Simulacion.postDescargarSimulacion(nroSimulacion, paso);
+        Simulacion.postDescargarSimulacion(paso.simulation_number, paso);
     }
 
     function handleChangeInstituto(e) {
@@ -113,37 +113,73 @@ const Resultado = (id) =>{
         }).format(nro);
     }
     
+    //al hacer click activo o desactivo que se edite
+    function activatePoliza(editable) {
+        editable ? setisEditablePoliza(false) : setisEditablePoliza(true)
+        if (!editable) {
+            polizaEditable.current.children[0].children[1].readOnly = false
+            polizaEditable.current.children[1].children[1].readOnly = false
+            polizaEditable.current.children[2].children[1].readOnly = false
+             
+        } else {
+             polizaEditable.current.children[0].children[1].readOnly = true
+            polizaEditable.current.children[1].children[1].readOnly = true
+            polizaEditable.current.children[2].children[1].readOnly = true
+/*
+            polizaEditable.current.children[0].children[1].value=formatNumberMX(paso.suma_asegurada)
+            polizaEditable.current.children[1].children[1].value=formatNumberMX(paso.suma_asegurada)
+            */
+        }
+    }
+
+    function activateDiagnostico(editable) {
+        editable ? setisEditableDiagnostico(false) : setisEditableDiagnostico(true)
+        if (!editable) {
+            diagnosticoEditable.current.children[0].children[1].readOnly = false
+            diagnosticoEditable.current.children[1].children[1].readOnly = false
+            diagnosticoEditable.current.children[2].children[1].readOnly = false
+             diagnosticoEditable.current.children[3].children[1].readOnly = false
+        } else {
+             diagnosticoEditable.current.children[0].children[1].readOnly = true
+            diagnosticoEditable.current.children[1].children[1].readOnly = true
+            diagnosticoEditable.current.children[2].children[1].readOnly = true
+            diagnosticoEditable.current.children[3].children[1].readOnly = true
+        }
+    }
+
+
     if(errors!=='' && cotizacion.length === 0) 
     return (
-    <div className="resultado">
-        <h1 className="resultado-title">Simulación No. {nroSimulacion}</h1>
+    <div key="resultado" className="resultado">
+        <h1 className="resultado-title">Simulación No. {paso.simulation_number}</h1>
 
             <div className="resultado-datos">
                 <h1 className="resultado-datos_title">Resumen de datos</h1>
 
                 <div className="flex">
                     <div className="flex-item1">
-                        
-                        <div className="card1">
-                            <div >
-                                <h3>Resumen de póliza </h3>
-                                <button className="btn-edit" onClick={handleClickPoliza}>
-                                    <img src={iconEdit} alt="edit"/>
-                                </button>
+                        <div className={`card1 ${isEditablePoliza? "editable" : ""}`}>
+                                <div className="d-flex">
+                                    <h3>Resumen de póliza </h3>
+                                    <button className="btn-edit" onClick={()=>activatePoliza(isEditablePoliza)}>
+                                        <img src={iconEdit} alt="edit" />
+                                    </button>
+                                </div>
+                                <div ref={polizaEditable} className="contenido-editable">
+                                    <div className="item">
+                                        <h4>Suma asegurada:</h4>
+                                        <input type="text" readOnly onChange={(e)=>paso.suma_asegurada=e.target.value} defaultValue={`$${paso.suma_asegurada}`} />
+                                    </div>
+                                    <div className="item">
+                                        <h4>Deducible:</h4>
+                                        <input type="text" readOnly onChange={(e)=>paso.deducible=e.target.value} defaultValue={`$${paso.deducible}`} />
+                                    </div>
+                                    <div className="item">
+                                        <h4>Coaseguro:</h4>
+                                        <input type="text" readOnly onChange={(e)=>paso.coaseguro=e.target.value} defaultValue={paso.coaseguro} /> %
+                                    </div>
+                                </div>
                             </div>
-                            <div> 
-                            <h4>Suma asegurada:</h4>
-                            {formatNumberMX(paso.suma_asegurada)}
-                            </div> 
-                            <div> 
-                            <h4>Deducible:</h4>
-                            {formatNumberMX(paso.deducible)}
-                            </div> 
-                            <div> 
-                            <h4>Coaseguro:</h4>
-                            {paso.coaseguro}%
-                            </div> 
-                        </div>
 
                         <p className="flex-item1--p">
                         Tengo dudas sobre mi póliza <br/> 
@@ -152,31 +188,32 @@ const Resultado = (id) =>{
                     </div>
 
                     <div className="flex-item2">
-                        <div className="card2">
+                       <div className={`card2 ${isEditableDiagnostico? "editable" : ""}`}>
                                 <div className="flex-row">
-                                <h3>Resumen del Diagnóstico </h3>
-                                    <button className="btn-edit" onClick={handleClickDiagnostico}>
-                                        <img src={iconEdit} alt="edit"/>
+                                    <h3>Resumen del Diagnóstico </h3>
+                                    <button className="btn-edit" onClick={() => activateDiagnostico(isEditableDiagnostico)}>
+                                        <img src={iconEdit} alt="edit" />
                                     </button>
                                 </div>
-                                <div className="grid-container"> 
-                                <h4>Etapa del cáncer de mama:</h4>
-                                <p>{paso.mama}</p>
-                                </div> 
-                                <div className="grid-container"> 
-                                <h4>Receptor Hormonal:</h4>
-                                <p>{paso.hormonal}</p>
-                                </div> 
-                                <div className="grid-container"> 
-                                <h4>Estatus de HER2:</h4>
-                                <p>{paso.her}</p>
-                                </div> 
-                                <div className="grid-container">  
-                                <h4>Estatus de BRCA:</h4>
-                                <p>{paso.brca}</p>
-                                </div> 
-                        </div>
-                    
+                                 <div ref={diagnosticoEditable} className="contenido-editable">
+                                    <div className="grid-container">
+                                        <h4>Etapa del cáncer de mama:</h4>
+                                        <input type="text" readOnly onChange={(e)=>paso.mama=e.target.value} defaultValue={paso.mama} />
+                                    </div>
+                                    <div className="grid-container">
+                                        <h4>Receptor Hormonal:</h4>
+                                        <input type="text" readOnly onChange={(e)=>paso.hormonal=e.target.value} defaultValue={paso.hormonal} />
+                                    </div>
+                                    <div className="grid-container">
+                                        <h4>Estatus de HER2:</h4>
+                                        <input type="text" readOnly onChange={(e)=>paso.her=e.target.value} defaultValue={paso.her} />
+                                    </div>
+                                    <div className="grid-container">
+                                        <h4>Estatus de BRCA:</h4>
+                                        <input type="text" readOnly onChange={(e)=>paso.brca=e.target.value} defaultValue={paso.brca} />
+                                    </div>
+                                </div>
+                            </div>
                     </div> {/*--- FIN FLEX-CONTAINER--- */}
 
                 </div>
@@ -191,33 +228,34 @@ const Resultado = (id) =>{
 
     return(
         <div className="resultado">
-                <h1 className="resultado-title">Simulación No. {nroSimulacion}</h1>
+                <h1 className="resultado-title">Simulación No. {paso.simulation_number}</h1>
 
                 <div className="resultado-datos">
                     <h1 className="resultado-datos_title">Resumen de datos</h1>
 
                     <div className="flex">
                         <div className="flex-item1">
-                            
-                            <div className="card1">
-                                <div >
+                             <div className={`card1 ${isEditablePoliza? "editable" : ""}`}>
+                                <div className="d-flex">
                                     <h3>Resumen de póliza </h3>
-                                    <button className="btn-edit" onClick={handleClickPoliza}>
-                                        <img src={iconEdit} alt="edit"/>
+                                    <button className="btn-edit" onClick={()=>activatePoliza(isEditablePoliza)}>
+                                        <img src={iconEdit} alt="edit" />
                                     </button>
                                 </div>
-                                <div> 
-                                <h4>Suma asegurada:</h4>
-                                {formatNumberMX(cotizacion.suma_asegurada)}
-                                </div> 
-                                <div> 
-                                <h4>Deducible:</h4>
-                                {formatNumberMX(cotizacion.deducible)}
-                                </div> 
-                                <div> 
-                                <h4>Coaseguro:</h4>
-                                {paso.coaseguro}%
-                                </div> 
+                                <div ref={polizaEditable} className="contenido-editable">
+                                    <div className="item">
+                                        <h4>Suma asegurada:</h4>
+                                    <input type="text" readOnly onChange={(e) => paso.suma_asegurada = e.target.value} defaultValue={`$${paso.suma_asegurada}`} />
+                                    </div>
+                                    <div className="item">
+                                        <h4>Deducible:</h4>
+                                        <input type="text" readOnly onChange={(e)=>paso.deducible=e.target.value} defaultValue={`$${paso.deducible}`} />
+                                    </div>
+                                    <div className="item">
+                                        <h4>Coaseguro:</h4>
+                                        <input type="text" readOnly onChange={(e)=>paso.coaseguro=e.target.value} defaultValue={paso.coaseguro} /> %
+                                    </div>
+                                </div>
                             </div>
 
                             <p className="flex-item1--p">
@@ -227,29 +265,31 @@ const Resultado = (id) =>{
                         </div>
 
                         <div className="flex-item2">
-                            <div className="card2">
-                                    <div className="flex-row">
+                            <div className={`card2 ${isEditableDiagnostico? "editable" : ""}`}>
+                                <div className="flex-row">
                                     <h3>Resumen del Diagnóstico </h3>
-                                        <button className="btn-edit" onClick={handleClickDiagnostico}>
-                                            <img src={iconEdit} alt="edit"/>
-                                        </button>
+                                    <button className="btn-edit" onClick={() => activateDiagnostico(isEditableDiagnostico)}>
+                                        <img src={iconEdit} alt="edit" />
+                                    </button>
+                                </div>
+                                 <div ref={diagnosticoEditable} className="contenido-editable">
+                                    <div className="grid-container">
+                                        <h4>Etapa del cáncer de mama:</h4>
+                                        <input type="text" readOnly onChange={(e)=>paso.mama=e.target.value} defaultValue={paso.mama} />
                                     </div>
-                                     <div className="grid-container"> 
-                                    <h4>Etapa del cáncer de mama:</h4>
-                                    <p>{paso.mama}</p>
-                                    </div> 
-                                    <div className="grid-container"> 
-                                    <h4>Receptor Hormonal:</h4>
-                                    <p>{paso.hormonal}</p>
-                                    </div> 
-                                    <div className="grid-container"> 
-                                    <h4>Estatus de HER2:</h4>
-                                    <p>{paso.her}</p>
-                                    </div> 
-                                    <div className="grid-container">  
-                                    <h4>Estatus de BRCA:</h4>
-                                    <p>{paso.brca}</p>
-                                    </div> 
+                                    <div className="grid-container">
+                                        <h4>Receptor Hormonal:</h4>
+                                        <input type="text" readOnly onChange={(e)=>paso.hormonal=e.target.value} defaultValue={paso.hormonal} />
+                                    </div>
+                                    <div className="grid-container">
+                                        <h4>Estatus de HER2:</h4>
+                                        <input type="text" readOnly onChange={(e)=>paso.her=e.target.value} defaultValue={paso.her} />
+                                    </div>
+                                    <div className="grid-container">
+                                        <h4>Estatus de BRCA:</h4>
+                                        <input type="text" readOnly onChange={(e)=>paso.brca=e.target.value} defaultValue={paso.brca} />
+                                    </div>
+                                </div>
                             </div>
                            
                         </div> {/*--- FIN FLEX-CONTAINER--- */}
@@ -257,19 +297,18 @@ const Resultado = (id) =>{
                     </div>
 
                     <div className="tipo-atencion">
-                        <div>
-                            <h3>tipo de atencion que requieres</h3>
-                            <div className="oncologo-o-multidisi">
-                                <p>Centro Oncológico</p>
-                                <div className="interrputor" >
-                                {/*si radio esta en true, estara a la izquierda , sino pasara a la derecha*/}
-                                <span onClick={()=>radio? setRadio(false) : setRadio(true)} className={`radio ${radio? "left" : "right"}`}/>
+                            <div>
+                                <h3>tipo de atencion que requieres</h3>
+                                <div className="oncologo-o-multidisi">
+                                    <p>Centro Oncológico</p>
+                                    <div className="interrputor" >
+                                        {/*si radio esta en true, estara a la izquierda , sino pasara a la derecha*/}
+                                        <span onClick={() => radio ? setRadio(false) : setRadio(true)} className={`radio ${radio ? "left" : "right"}`} />
+                                    </div>
+                                    <p>Enfoque multidisciplinario</p>
                                 </div>
-                                
-                                <p>Enfoque multidisciplinario</p>
                             </div>
                         </div>
-                    </div>
 
                 </div> {/*--- FIN DATOS--- */}
 
@@ -350,15 +389,12 @@ const Resultado = (id) =>{
                 <div className="resultado-legal">
                     <p>Legal que menciona que el resultado puede ser variable y que depende de la decisón de cada médico.</p>
                 </div>
-                {(contacto) ? <FormularioContacto nroSimulacion={nroSimulacion} costo_total={cotizacion.costo_total}/> 
+                {(contacto) ? <FormularioContacto nroSimulacion={paso.simulation_number} costo_total={cotizacion.costo_total}/> 
                 : <div></div>}
         </div>
     )
 
 }
 
-/*
-   
-*/
 
 export default Resultado;

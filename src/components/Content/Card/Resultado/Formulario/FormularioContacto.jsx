@@ -31,7 +31,7 @@ const FormularioContacto = ({nroSimulacion,costo_total}) => {
         // console.log(nroSimulacion, paso, data, costo_total);
         // console.log(data);
     
-         Simulacion.postGenerarPreaprobacion( nroSimulacion, paso, data, costo_total)
+         Simulacion.postGenerarPreaprobacion( paso.nroSimulacion, paso, data, costo_total)
          .then(res => {
             if(res.data==='Almacenado')
             setMsg('Los datos han sido guardados');

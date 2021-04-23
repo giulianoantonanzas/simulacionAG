@@ -27,9 +27,27 @@ function convertCommatoDot(str) {
 
 export default  {
 
-    getSimulacionById: (id)=>{
-        return axios.get(globalURL + 'simulacion',id)
-        .then(data => data.data);
+    postSimulacion: (paso,cotizacion) => {
+        const data = {
+            costo_total: cotizacion,
+            id_receptor_hormonal: paso.id_receptor_hormonal,	
+            id_status_her: paso.id_status_her,	
+            id_status_brca: paso.id_status_brca,	
+            id_etapa_cdm: paso.id_etapa_cdm,	
+            id_aseguradora: paso.id_aseguradora,	
+            id_institucion: paso.id_institucion,
+            suma_asegurada: convertCommatoDot(paso.suma_asegurada), 
+            deducible: convertCommatoDot(paso.deducible), 
+            coaseguro: paso.coaseguro,
+            identificador:paso.simulation_number
+        }
+        return axios.post(globalURL + "simulaciones", data)
+        .then(data => data.data).catch(err => err);
+    },
+
+    getSimulacionById : (id)=>{
+        return  axios.get("https://cami.st4ging.dev/api/simulacion/"+id)
+        .then(data => data.data).catch(err => err);
     },
 
     getAseguradoras: () => {
@@ -87,8 +105,6 @@ export default  {
     },
 
     postDescargarSimulacion: (identificador, paso) => {
-
-      
         const data = {
             identificador: identificador,
             id_receptor_hormonal: paso.id_receptor_hormonal,	
@@ -147,7 +163,7 @@ export default  {
             id_status_brca: paso.id_status_brca,	
             id_etapa_cdm: paso.id_etapa_cdm,	
             id_aseguradora: paso.id_aseguradora,	
-            identificador: identificador,
+            identificador: paso.simulation_number,
         };
         return axios.post(globalURL + 'usuarios/preaprobacion', data)
         .then(res => res)

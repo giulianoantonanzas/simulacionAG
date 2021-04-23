@@ -1,6 +1,26 @@
 .btn {
     border: none;
     font-size: 2.4rem;
+    &.activeBTN{
+        margin-left: 5px;
+        margin-top: 20px;
+        width: 31.4rem;
+        height: 3rem;
+        background: #2D9CDB;
+        color: #FFFFFF;
+        border-radius: 1.6rem;
+        transition: .2s all;
+    }
+    &.desactiveBTN{
+        margin-left: 5px;
+        margin-top: 20px;
+        width: 31.4rem;
+        height: 3rem;
+        background: grey;
+        color: rgb(185, 185, 185);
+        border-radius: 1.6rem;
+        transition: .2s all;
+    }
 
     &-siguiente {
         width: 31.4rem;
@@ -150,13 +170,14 @@
         width: 41.6rem;
         padding: 2rem 0;
         font-size: 2rem;
-    
-
         background: #2D9CDB;
         color: white;
         border-radius: 1.6rem;
         font-size: 2rem;
         font-weight: 600;
+         &:hover{
+             background: #2378a8;
+        }
         @media only screen and (max-width: 768px) {
             max-width: 25rem;
             margin-bottom: 2rem;
