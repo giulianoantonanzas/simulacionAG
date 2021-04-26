@@ -16,7 +16,7 @@ const Carrousel = () =>{
     const {paso} = useContext(PasoContext);
     const [pagina,setPagina]= useState(paso.id)
     const siguientePagina=()=>{
-        if(pagina<4){
+        if(pagina<4 && pagina>1){
             setPagina(pagina+1)
             paso.id++;
         }
@@ -48,7 +48,7 @@ const Carrousel = () =>{
                 paso.id==5? <Resultado /> : null
             }
 
-            <img className={`arrow-right  ${pagina<4? "blod": "light"}`} onClick={()=>siguientePagina()} src={pagina<4? ArrowUp :Arrow} alt="derecha"/>
+            <img className={`arrow-right  ${(pagina<4 && pagina>1)? "blod": "light"}`} onClick={()=>siguientePagina()} src={(pagina<4 && pagina>1)? ArrowUp :Arrow} alt="derecha"/>
         </div>
     )
 }

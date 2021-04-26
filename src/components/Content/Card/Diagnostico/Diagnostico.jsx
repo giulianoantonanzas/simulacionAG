@@ -26,7 +26,45 @@ const Diagnostico = () =>{
     const herRef = React.useRef();
     const brcaRef = React.useRef();
     
-    //selectedIndex
+
+
+
+    function cleanError(){
+        /* SI NO SE ESTA MOSTRANDO NINGUNO DE LOS ULTIMOS CAMPOS SE LIMPIA EL ERROR */
+        const aunNoMamaSeposition=mamaRef.current?.children.length-1
+        const aunNoHormonSeposition=hormonalRef.current?.children.length-1
+        const aunNoHerRefSeposition=herRef.current?.children.length-1
+        const aunNoBrcaRefSeposition=brcaRef.current?.children.length-1
+
+        if(mamaRef.current.value !== mamaRef.current.children[aunNoMamaSeposition].text &&
+            hormonalRef.current.value !== hormonalRef.current.children[aunNoHormonSeposition].text &&
+            herRef.current.value !== herRef.current.children[aunNoHerRefSeposition].text &&
+            brcaRef.current.value !== brcaRef.current.children[aunNoBrcaRefSeposition].text ){
+                setErrorMsg('')
+            }
+    }
+
+    function viewError(){
+        /* si se selecciona el ultimo campo entonces mostrar error*/
+        const aunNoMamaSeposition=mamaRef.current?.children.length-1
+        const aunNoHormonSeposition=hormonalRef.current?.children.length-1
+        const aunNoHerRefSeposition=herRef.current?.children.length-1
+        const aunNoBrcaRefSeposition=brcaRef.current?.children.length-1
+
+        if(mamaRef.current.value === mamaRef.current.children[aunNoMamaSeposition].text ){
+            setErrorMsg("Para continuar con la simulación es importante conocer en qué etapa del padecimiento te encuentras ya que dependiendo de ésta varía la simulación, acude a tu médico por el diagnóstico.")
+        }
+        if(hormonalRef.current.value === hormonalRef.current.children[aunNoHormonSeposition].text ){
+            setErrorMsg("Para poder realizar los cálculos, es vital  que conozcas cuál es el receptor hormonal")
+        }
+        if(herRef.current.value === herRef.current.children[aunNoHerRefSeposition].text ){
+            setErrorMsg("Para poder avanzar, contacta a tu médico para que te informe sobre tu estatus de HER2")
+        }
+        if(brcaRef.current.value === brcaRef.current.children[aunNoBrcaRefSeposition].text ){
+            setErrorMsg("Para generar una simulación es necesario contar con todos los datos solicitados, pregunta a tu médico por tu Estatus de BRCA")
+        }
+
+    }
 
 
     React.useEffect(()=>{
@@ -52,41 +90,10 @@ const Diagnostico = () =>{
             if(!listaBRCA.length){
                 Simulacion.getBRCA().then(data => setBRCA(data))
             }
-            //--------------------------------------//
-           
-
+        
     })
 
 
-    function cleanError(){
-        if((diagnostico.brca!=="Aún no lo sé" || diagnostico.brca!=="Aun no lo sé") &&  diagnostico.her!=="Aún no lo sé" && diagnostico.hormonal!=="Aún no lo sé" && diagnostico.mama!=="Aún no lo sé" ){
-            setErrorMsg('')
-        }
-    }
-
-    function viewError(){
-
-       
-        const aunNoMamaSeposition=mamaRef.current?.children.length-1
-        const aunNoHormonSeposition=hormonalRef.current?.children.length-1
-        const aunNoHerRefSeposition=herRef.current?.children.length-1
-        const aunNoBrcaRefSeposition=brcaRef.current?.children.length-1
-
-        if(mamaRef.current.value == mamaRef.current.children[aunNoMamaSeposition].text ){
-            setErrorMsg("Para continuar con la simulación es importante conocer en qué etapa del padecimiento te encuentras ya que dependiendo de ésta varía la simulación, acude a tu médico por el diagnóstico.")
-        }
-    
-        if(hormonalRef.current.value == hormonalRef.current.children[aunNoHormonSeposition].text ){
-            setErrorMsg("Para poder realizar los cálculos, es vital  que conozcas cuál es el receptor hormonal")
-        }
-        if(herRef.current.value == herRef.current.children[aunNoHerRefSeposition].text ){
-            setErrorMsg("Para poder avanzar, contacta a tu médico para que te informe sobre tu estatus de HER2")
-        }
-        if(brcaRef.current.value == brcaRef.current.children[aunNoBrcaRefSeposition].text ){
-            setErrorMsg("Para generar una simulación es necesario contar con todos los datos solicitados, pregunta a tu médico por tu Estatus de BRCA")
-        }
-
-    }
 
     function handleChange(e) {
         e.preventDefault();

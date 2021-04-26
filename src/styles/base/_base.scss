@@ -51,3 +51,7 @@ body {
 .marginRight {
     margin-right: 2rem;
 }
+
+input:focus , select:focus{
+    outline: none;
+}

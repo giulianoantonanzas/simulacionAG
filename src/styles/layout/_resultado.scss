@@ -7,10 +7,6 @@
     .d-flex {
         display: flex
     }
-    @media only screen and (max-width: 480px) {
-        align-items: stretch;
-        padding: 1.5rem;
-    }
     .btn-edit {
         margin-left: auto;
     }
@@ -44,10 +40,10 @@
                     border-radius: 50%;
                     height: 30px;
                     width: 30px;
-                    &.right {
-                        transition: 0.2s;
-                        transform: translateX(20px);
-                    }
+                }
+                &.right .radio{
+                    transition: 0.2s;
+                    transform: translateX(20px);
                 }
             }
         }
