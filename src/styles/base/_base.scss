@@ -55,3 +55,6 @@ body {
 input:focus , select:focus{
     outline: none;
 }
+select{
+    white-space: normal!important
+}

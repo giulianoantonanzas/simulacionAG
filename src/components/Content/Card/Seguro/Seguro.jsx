@@ -62,7 +62,7 @@ const Seguro = () => {
         const re = /[0-9]+(\.[0-9][0-9]?)?/;
         // solo toma valor ingresado si esta en blanco o pasa el test ER
         if (e.target.value === '' || re.test(e.target.value)) {
-            setSeguro({ ...seguro, deducible: e.target.value.replace(/\D/g, "").replace(/([0-9])([0-9]{3})$/, '$1.$2').replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",") });
+            setSeguro({ ...seguro, deducible: e.target.value.replace(/\D/g, "").replace(/([0-9])([0-9]{3})$/, '$1,$2').replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",") });
         }
     }
 

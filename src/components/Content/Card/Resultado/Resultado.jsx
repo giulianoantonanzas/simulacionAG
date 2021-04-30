@@ -23,31 +23,24 @@ const Resultado = () => {
     const hospitalRef = React.useRef();
 
     //view value se creo para reemplazar paso, como no se si se tiene que impactar el cambio, mejor dejar una simulacion.
-    const [viewValues,setViewValues]=React.useState({...paso})
-
-
+    const [viewValues, setViewValues] = React.useState({ ...paso })
 
     if (paso.simulation_number === '') {
         setPaso({ ...paso, simulation_number: Math.floor(Math.random() * 100) + 112233 })
     }
 
     React.useEffect(() => {
-
         //si en el primer caracter no hay un $
         if (viewValues.suma_asegurada[0] !== '$') {
             setViewValues({ ...viewValues, suma_asegurada: '$' + viewValues.suma_asegurada })
         }
-
         if (viewValues.deducible[0] !== '$') {
             setViewValues({ ...viewValues, deducible: '$' + viewValues.deducible })
         }
         //si en el ultimo caracter no tiene un %
-
         if (viewValues.coaseguro[viewValues.coaseguro.length - 1] !== '%') {
             setViewValues({ ...viewValues, coaseguro: viewValues.coaseguro + "%" })
         }
-
-        //Simulacion.postSimulacion(paso, cotizacion.costo_total).then(info=>console.log(info)).catch(e=>console.log(e))
         Simulacion.getInstituciones().then(data => setListaI(data))
 
         Simulacion.postCotizacion(paso).then(data => {
@@ -63,7 +56,7 @@ const Resultado = () => {
             });
     }, [viewValues])
 
-    React.useEffect(()=>{
+    React.useEffect(() => {
         //al hacer click activo o desactivo que se edite o no
         if (isEditablePoliza) {
             polizaEditable.current.children[0].children[1].readOnly = false
@@ -85,12 +78,11 @@ const Resultado = () => {
             diagnosticoEditable.current.children[2].children[1].readOnly = true
             diagnosticoEditable.current.children[3].children[1].readOnly = true
         }
+    }, [isEditablePoliza, isEditableDiagnostico, polizaEditable, diagnosticoEditable], [])
 
-    },[isEditablePoliza, isEditableDiagnostico,polizaEditable,diagnosticoEditable])
 
     function handleGenerar(e) {
         e.preventDefault();
-
         setContacto(true);
     }
 
@@ -127,17 +119,21 @@ const Resultado = () => {
 
     function handleDescargarSimulacion(e) {
         e.preventDefault();
-
         Simulacion.postDescargarSimulacion(paso.simulation_number, paso);
     }
-
-    function handleChangeInstituto(e) {
-        e.preventDefault();
-
-        setPaso({ ...paso, id_institucion: hospitalRef.current.value });
-        setCotizacion([]);
-        setItems([]);
-
+    ///dddddd
+    function handleChangeInstituto() {
+        setCotizacion("")
+        Simulacion.postCotizacion({ ...paso, id_institucion: hospitalRef.current.value }).then(data => {
+            setCotizacion(data);
+            if (data["items"].length !== 0)
+                setItems(data["items"]);
+        })
+            .catch(err => {
+                setItems([]);
+                setCotizacion([]);
+                setErrors('No se encuentra este perfil.')
+            });
     }
 
     function formatNumberMX(nro) {
@@ -147,9 +143,6 @@ const Resultado = () => {
             currency: 'MXN'
         }).format(nro);
     }
-
-
-
 
 
     if (errors !== '' && cotizacion.length === 0)
@@ -219,7 +212,6 @@ const Resultado = () => {
                                 </div>
                             </div>
                         </div> {/*--- FIN FLEX-CONTAINER--- */}
-
                     </div>
 
                 </div> {/*--- FIN DATOS--- */}
@@ -318,15 +310,11 @@ const Resultado = () => {
 
             <div className="resultado-costo">
                 <h1 className="resultado-costo--title">Costo estimado del tratamiento anual</h1>
-
-
                 <form className="costo-form">
-
                     <div className="form-control">
-                        <select name="instituciones" id="instituciones" onChange={handleChangeInstituto}
+                        <select name="instituciones" id="instituciones" onChange={() => handleChangeInstituto()}
                             ref={hospitalRef}
-                            option={items}
-                            defaultValue={{ label: "Select Dept", value: 0 }}>
+                            option={items}>
                             <option value="Select" disabled>Seleccionar</option>
                             {
                                 listaI.map((item) => {
@@ -341,41 +329,31 @@ const Resultado = () => {
                     }
                 </form>
                 {
-
                     (cotizacion.length === 0) ? <div className="cargando"> Cargando Detalle ....</div>
                         :
                         <div>
-
                             <div className="resultado-costo_detalle">
                                 <h2 className="resultado-costo_detalle--title">Detalles*:</h2>
                                 {
                                     (items.length !== 0) ?
                                         items.map(data => {
                                             return <div className="flex-column">
-
                                                 <h4 className="flex-container">
                                                     <div> {data.nombre}:</div>
-                                                    <div>{formatNumberMX(data.precio_preferencial)}</div>
+                                                    <div>{formatNumberMX(data.precio_preferencial*data.cantidad)}</div>
                                                 </h4>
                                                 <p> {data.detalle} </p>
                                             </div>
                                         })
-
-
                                         :
                                         <div>Cargando ....</div>
                                 }
-
                                 <h4 className="flex-container">
                                     <div> Total por 1 año</div>
                                     <div>{formatNumberMX(cotizacion.costo_total)}</div>
                                 </h4>
-
-
                             </div>
                         </div>
-
-
                 }
 
             </div>
@@ -383,11 +361,9 @@ const Resultado = () => {
 
 
             <div className="resultado-costo_buttons">
-
                 <button className="btn btn-generar marginRight" onClick={handleGenerar}>Generar Preaprobación</button>
                 <button className="btn btn-descargar marginRight" onClick={handleDescargarSimulacion}>Descargar Simulacion</button>
                 <button className="btn btn-finalizar marginRight" onClick={handleFInalizar}>Finalizar Simulación</button>
-
             </div>
 
             <div className="resultado-legal">

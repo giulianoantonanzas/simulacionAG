@@ -243,4 +243,17 @@
         justify-content: center;
         align-items: center;
     }
+
+    .contacto .form-control input[type=email]{
+        height: 44px;
+    }
+
+    .contacto .form-control input[type=text], .contacto .form-control input[type=date] {
+        height: 44px;
+    }
+    .contacto-form_card{
+        input{
+            min-height: 44px;
+        }
+    }
 }

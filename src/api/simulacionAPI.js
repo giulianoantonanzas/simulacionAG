@@ -97,8 +97,6 @@ export default  {
             coaseguro: paso.coaseguro, 
         }
 
-        //console.log("datos para cotizar: ",data);
-
         return axios.post(globalURL + 'cotizacion', data)
         .then( res => res.data)
         .catch(err => err);
@@ -132,7 +130,7 @@ export default  {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'Simulacion.pdf'); //or any other extension
+            link.setAttribute('download', 'Simulacion.pdf');
             document.body.appendChild(link);
             link.click();
         })
@@ -148,7 +146,7 @@ export default  {
             apellido_paterno: user.paterno,
             edad: paso.edad,
             fecha_nacimiento: user.birth,
-            genero: paso.gender,
+            genero: "femenino",
             email: user.email,
             num_poliza: user.nropoliza,
             id_institucion: paso.id_institucion,
