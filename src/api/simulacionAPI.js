@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 
+//localhost/apo
+//https://tresprimadev.com/
 const globalURL = 'https://cami.st4ging.dev/api/';
 
 /* 
@@ -46,7 +48,7 @@ export default  {
     },
 
     getSimulacionById : (id)=>{
-        return  axios.get("https://cami.st4ging.dev/api/simulacion/"+id)
+        return  axios.get(globalURL+"simulacion/"+id)
         .then(data => data.data).catch(err => err);
     },
 
@@ -130,16 +132,14 @@ export default  {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'Simulacion.pdf');
+            link.setAttribute('download', 'Simulacion.pdf'); //or any other extension
             document.body.appendChild(link);
             link.click();
         })
         .catch((error) => console.log(error));
-        
-
     },
 
-    postGenerarPreaprobacion: (identificador, paso, user, costo_total) => {
+    postGenerarPreaprobacion: (paso, user, costo_total) => {
         const data = {
             nombre: user.name,
             apellido_materno: user.materno,

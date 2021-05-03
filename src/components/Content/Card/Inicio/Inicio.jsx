@@ -29,7 +29,8 @@ const Inicio = () =>{
         if (isButtonActive) {
             Simulacion.getSimulacionById(paso.simulation_number).then(data => {
                 //esto esta mal, lo que intento hacer es que si obtube un dato valido, entonces que hago lo que esta dentro del if.
-                if (data.receptor_hormonal) {
+                if (data.identificador) {
+                    console.log(data)
                     setPaso({
                         ...paso,
                         id:5,
@@ -41,6 +42,7 @@ const Inicio = () =>{
                         her: data.status_her, 
                         brca: data.status_brca,
                         simulation_number: data.identificador,
+                        items:data.items,
                         aprobed_forms:5
                     })
                 }

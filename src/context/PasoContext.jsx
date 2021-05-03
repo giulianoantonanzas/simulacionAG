@@ -1,4 +1,4 @@
-import React, {createContext, useState} from 'react';
+import React, { createContext, useState } from 'react';
 
 export const PasoContext = createContext();
 
@@ -10,40 +10,37 @@ const pasoHard = {
     //--------------//
     //-- Seguro --//
     aseguradora: '',
-    suma_asegurada: '', 
-    coaseguro: '', 
-    deducible: '', 
+    suma_asegurada: '',
+    coaseguro: '',
+    deducible: '',
     vigencia: '',
     //-----------------//
     //-- Diagnostico --//
-    mama: '', 
-    hormonal: '', 
-    her: '', 
+    mama: '',
+    hormonal: '',
+    her: '',
     brca: '',
     //------------------//
     //-- Centro --//
-    centro:'',
+    centro: '',
     //-----------------//
     //-- Datos enviados Backend e.g Perfil 1 --//
-    id_receptor_hormonal: 1,	
-    id_status_her: 1,	
-    id_status_brca: 3,	
-    id_etapa_cdm: 1,	
-    id_aseguradora: 1,	
+    id_receptor_hormonal: 1,
+    id_status_her: 1,
+    id_status_brca: 3,
+    id_etapa_cdm: 1,
+    id_aseguradora: 1,
     id_institucion: 1,
-    //suma_asegurada: 0,
-    //deducible: 0,
-    //coaseguro: 0,  
-
+    items: [],
     /* FORM OPTIONS*/
-    aprobed_forms: 0 ,
-    simulation_number:''
+    aprobed_forms: 0,
+    simulation_number: ''
     //------------------------//
 
-    
+
 }
 
-export const PasoProvider = ({children}) => {
+export const PasoProvider = ({ children }) => {
 
     const [paso, setPaso] = useState(pasoHard);
 

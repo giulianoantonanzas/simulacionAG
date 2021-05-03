@@ -7,7 +7,7 @@ import FormularioContacto from './Formulario/FormularioContacto';
 import { PasoContext } from '../../../../context/PasoContext';
 
 
-const Resultado = () => {
+const Resultado = (resultadoDef) => {
 
     const [contacto, setContacto] = React.useState(false);
     const polizaEditable = React.createRef()
@@ -18,7 +18,6 @@ const Resultado = () => {
     const { paso, setPaso } = React.useContext(PasoContext);
     const [listaI, setListaI] = React.useState([]);
     const [cotizacion, setCotizacion] = React.useState([]);
-    const [items, setItems] = React.useState([]);
     const [errors, setErrors] = React.useState('');
     const hospitalRef = React.useRef();
 
@@ -45,16 +44,16 @@ const Resultado = () => {
 
         Simulacion.postCotizacion(paso).then(data => {
             setCotizacion(data);
-            //  console.log('Entro cotizacion', cotizacion);
-            if (data["items"].length !== 0)
-                setItems(data["items"]);
+            if (paso.items?.length === 0) {
+                setPaso({ ...paso, items: data["items"] })
+            }
         })
             .catch(err => {
-                setItems([]);
                 setCotizacion([]);
                 setErrors('No se encuentra este perfil.')
             });
-    }, [viewValues])
+    }, [viewValues],[])
+
 
     React.useEffect(() => {
         //al hacer click activo o desactivo que se edite o no
@@ -113,37 +112,29 @@ const Resultado = () => {
             id_aseguradora: 1,
             id_institucion: 1,
             aprobed_forms: 0,
-            simulation_number: ''
+            simulation_number: '',
+            items: []
         });
     }
 
-    function handleDescargarSimulacion(e) {
-        e.preventDefault();
+    function handleDescargarSimulacion() {
         Simulacion.postDescargarSimulacion(paso.simulation_number, paso);
     }
-    ///dddddd
+
     function handleChangeInstituto() {
         setCotizacion("")
         Simulacion.postCotizacion({ ...paso, id_institucion: hospitalRef.current.value }).then(data => {
+            console.log(data)
             setCotizacion(data);
-            if (data["items"].length !== 0)
-                setItems(data["items"]);
-        })
-            .catch(err => {
-                setItems([]);
-                setCotizacion([]);
-                setErrors('No se encuentra este perfil.')
-            });
+        });
     }
 
     function formatNumberMX(nro) {
-
         return new Intl.NumberFormat("ES-MX", {
             style: 'currency',
             currency: 'MXN'
         }).format(nro);
     }
-
 
     if (errors !== '' && cotizacion.length === 0)
         return (
@@ -314,7 +305,7 @@ const Resultado = () => {
                     <div className="form-control">
                         <select name="instituciones" id="instituciones" onChange={() => handleChangeInstituto()}
                             ref={hospitalRef}
-                            option={items}>
+                            option={paso.items}>
                             <option value="Select" disabled>Seleccionar</option>
                             {
                                 listaI.map((item) => {
@@ -324,23 +315,23 @@ const Resultado = () => {
                         </select>
                     </div>
                     {
-                        (cotizacion.length === 0) ? <div className="cargando"> Cargando Monto ....</div> :
+                        (cotizacion?.length === 0) ? <div className="cargando"> Cargando Monto ....</div> :
                             <p className="form-text"> {formatNumberMX(cotizacion.costo_total)}</p>
                     }
                 </form>
                 {
-                    (cotizacion.length === 0) ? <div className="cargando"> Cargando Detalle ....</div>
+                    (cotizacion?.length === 0) ? <div className="cargando"> Cargando Detalle ....</div>
                         :
                         <div>
                             <div className="resultado-costo_detalle">
                                 <h2 className="resultado-costo_detalle--title">Detalles*:</h2>
                                 {
-                                    (items.length !== 0) ?
-                                        items.map(data => {
+                                    (paso.items?.length !== 0) ?
+                                        paso.items.map(data => {
                                             return <div className="flex-column">
                                                 <h4 className="flex-container">
                                                     <div> {data.nombre}:</div>
-                                                    <div>{formatNumberMX(data.precio_preferencial*data.cantidad)}</div>
+                                                    <div>{formatNumberMX((data.precio_preferencial * data.cantidad))}</div>
                                                 </h4>
                                                 <p> {data.detalle} </p>
                                             </div>
@@ -362,7 +353,7 @@ const Resultado = () => {
 
             <div className="resultado-costo_buttons">
                 <button className="btn btn-generar marginRight" onClick={handleGenerar}>Generar Preaprobación</button>
-                <button className="btn btn-descargar marginRight" onClick={handleDescargarSimulacion}>Descargar Simulacion</button>
+                <button className="btn btn-descargar marginRight" onClick={() => handleDescargarSimulacion()}>Descargar Simulacion</button>
                 <button className="btn btn-finalizar marginRight" onClick={handleFInalizar}>Finalizar Simulación</button>
             </div>
 
