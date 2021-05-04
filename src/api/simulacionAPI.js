@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 
-//localhost/apo
-//https://tresprimadev.com/
+//localhost/api
+//https://tresprimadev.com/api
 const globalURL = 'https://cami.st4ging.dev/api/';
 
 /* 

@@ -33,6 +33,7 @@ const Inicio = () => {
                     console.log(data)
                     const deducibleData = data.deducible.toString().slice(0, -2);
                     const sumaAsegDat = data.suma_asegurada.toString().slice(0, -2);
+                    console.log(data)
                     setPaso({
                         ...paso,
                         id: 5,
@@ -46,6 +47,13 @@ const Inicio = () => {
                         brca: data.status_brca,
                         simulation_number: data.identificador,
                         items: data.items,
+                        id_aseguradora: data.id_aseguradora,
+                        id_etapa_cdm: data.id_etapa_cdm,
+                        id_institucion: data.id_institucion,
+                        id_receptor_hormonal: data.id_receptor_hormonal,
+                        id_status_brca: data.id_status_brca,
+                        id_status_her: data.id_status_her,
+                        isSave: true,
                         aprobed_forms: 5,
                     })
                 }

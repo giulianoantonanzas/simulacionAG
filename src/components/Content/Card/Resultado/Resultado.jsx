@@ -78,8 +78,8 @@ const Resultado = (resultadoDef) => {
             diagnosticoEditable.current.children[3].children[1].readOnly = true
         }
 
-        polizaEditable.current.children[1].children[1].value = polizaEditable.current.children[1].children[1].value.replace(/\D/g, "").replace(/([0-9])([0-9]{3})$/, '$1,$2').replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",")
-        polizaEditable.current.children[0].children[1].value = polizaEditable.current.children[0].children[1].value.replace(/\D/g, "").replace(/([0-9])([0-9]{3})$/, '$1,$2').replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",")
+        polizaEditable.current.children[1].children[1].value = "$"+polizaEditable.current.children[1].children[1].value.replace(/\D/g, "").replace(/([0-9])([0-9]{3})$/, '$1,$2').replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",")
+        polizaEditable.current.children[0].children[1].value = "$"+polizaEditable.current.children[0].children[1].value.replace(/\D/g, "").replace(/([0-9])([0-9]{3})$/, '$1,$2').replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",")
     }, [isEditablePoliza, isEditableDiagnostico, polizaEditable, diagnosticoEditable], [])
 
 
@@ -292,7 +292,6 @@ const Resultado = (resultadoDef) => {
                         <div className="oncologo-o-multidisi">
                             <p>Centro Oncológico</p>
                             <div onClick={() => radio ? setRadio(false) : setRadio(true)} className={`interrputor ${radio ? "left" : "right"}`} >
-                                {/*si radio esta en true, estara a la izquierda , sino pasara a la derecha*/}
                                 <span className="radio" />
                             </div>
                             <p>Enfoque multidisciplinario</p>
@@ -311,7 +310,7 @@ const Resultado = (resultadoDef) => {
                             option={paso.items}>
                             <option value="Select" disabled>Seleccionar</option>
                             {
-                                listaI.map((item) => {
+                                listaI?.map((item) => {
                                     return <option key={item.id} value={item.id}>{item.nombre}</option>
                                 })
                             }
@@ -330,7 +329,7 @@ const Resultado = (resultadoDef) => {
                                 <h2 className="resultado-costo_detalle--title">Detalles*:</h2>
                                 {
                                     (paso.items?.length !== 0) ?
-                                        paso.items.map(data => {
+                                        paso.items?.map(data => {
                                             return <div className="flex-column">
                                                 <h4 className="flex-container">
                                                     <div> {data.nombre}:</div>
