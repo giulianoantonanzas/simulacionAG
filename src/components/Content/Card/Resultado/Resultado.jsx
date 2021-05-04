@@ -52,7 +52,7 @@ const Resultado = (resultadoDef) => {
                 setCotizacion([]);
                 setErrors('No se encuentra este perfil.')
             });
-    }, [viewValues],[])
+    }, [viewValues], [])
 
 
     React.useEffect(() => {
@@ -77,6 +77,9 @@ const Resultado = (resultadoDef) => {
             diagnosticoEditable.current.children[2].children[1].readOnly = true
             diagnosticoEditable.current.children[3].children[1].readOnly = true
         }
+
+        polizaEditable.current.children[1].children[1].value = polizaEditable.current.children[1].children[1].value.replace(/\D/g, "").replace(/([0-9])([0-9]{3})$/, '$1,$2').replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",")
+        polizaEditable.current.children[0].children[1].value = polizaEditable.current.children[0].children[1].value.replace(/\D/g, "").replace(/([0-9])([0-9]{3})$/, '$1,$2').replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",")
     }, [isEditablePoliza, isEditableDiagnostico, polizaEditable, diagnosticoEditable], [])
 
 
@@ -124,7 +127,7 @@ const Resultado = (resultadoDef) => {
     function handleChangeInstituto() {
         setCotizacion("")
         Simulacion.postCotizacion({ ...paso, id_institucion: hospitalRef.current.value }).then(data => {
-            console.log(data)
+            setPaso({ ...paso, id_institucion: hospitalRef.current.value, items: data.items })
             setCotizacion(data);
         });
     }

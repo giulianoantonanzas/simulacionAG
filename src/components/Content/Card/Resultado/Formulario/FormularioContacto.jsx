@@ -13,13 +13,10 @@ const FormularioContacto = ({ nroSimulacion, costo_total }) => {
 
     const { register, handleSubmit, watch, errors } = useForm();
 
-
-
     const { paso } = React.useContext(PasoContext);
 
     const [check, setCheck] = React.useState(false);
     const [msg, setMsg] = React.useState('');
-    const [error, setError] = React.useState('');
 
     function handleCheckBox(e) {
         setCheck(e.target.checked);

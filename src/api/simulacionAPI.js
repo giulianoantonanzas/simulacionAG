@@ -23,7 +23,7 @@ Example:
 }
 */
 function convertCommatoDot(str) {
-    let num = parseFloat(str.replace(/\s/g, "").replace(",", "."));
+    let num = parseFloat(str.replace(/\s/g, "").replace(",", ""));
     return num;
 }
 
@@ -85,7 +85,6 @@ export default  {
     },
 
     //Pedir datos de cotizacion
-
     postCotizacion: (paso) => {
         const data = {
             id_receptor_hormonal: paso.id_receptor_hormonal,	

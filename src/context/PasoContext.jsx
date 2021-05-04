@@ -27,7 +27,7 @@ const pasoHard = {
     //-- Datos enviados Backend e.g Perfil 1 --//
     id_receptor_hormonal: 1,
     id_status_her: 1,
-    id_status_brca: 3,
+    id_status_brca: 1,
     id_etapa_cdm: 1,
     id_aseguradora: 1,
     id_institucion: 1,
