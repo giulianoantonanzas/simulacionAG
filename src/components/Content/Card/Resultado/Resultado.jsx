@@ -133,10 +133,13 @@ const Resultado = (resultadoDef) => {
     }
 
     function formatNumberMX(nro) {
-        return new Intl.NumberFormat("ES-MX", {
+        const num= new Intl.NumberFormat("ES-MX", {
             style: 'currency',
             currency: 'MXN'
         }).format(nro);
+
+        //se quito la coma por pedido del cliente
+        return num.toString().slice(0, -3);
     }
 
     if (errors !== '' && cotizacion.length === 0)
